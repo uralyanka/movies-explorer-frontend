@@ -1,0 +1,25 @@
+.navtab {
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.navtab__grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 96px);
+    grid-template-rows: 36px;
+    gap: 0 10px;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0 auto;
+}
+
+.navtab__grid-item {
+    background-color: #303030;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
