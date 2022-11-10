@@ -26,3 +26,15 @@
 .link:hover {
   opacity: 0.6;
 }
+
+.button {
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.button:hover {
+  opacity: 0.6;
+}
