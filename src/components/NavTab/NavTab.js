@@ -7,7 +7,7 @@ export default function NavTab() {
         <ul className="navtab__grid-container">
             <li className="navtab__grid-item"><a href="#project" className="link">О проекте</a></li>
             <li className="navtab__grid-item"><a href="#techs" className="link">Технологии</a></li>
-            <li className="navtab__grid-item"><a href="#aboutme" className="link">Студент</a></li>
+            <li className="navtab__grid-item"><a href="#about-me" className="link">Студент</a></li>
         </ul>
       </section>
       );

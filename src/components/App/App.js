@@ -1,4 +1,5 @@
 // import { Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 // import Movies from "../Movies/Movies";
@@ -13,6 +14,18 @@ import "./App.css";
 export default function App() {
   return (
     <div className="app">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>YA.Diploma</title>
+        <link
+          rel="canonical"
+          href="http://uralyanka.diploma.nomoredomains.icu"
+        />
+        <meta
+          name="description"
+          content="Дипломная работа Яны Евстегнеевой на Яндекс.Практикуме"
+        />
+      </Helmet>
       <div className="page">
         <Header />
 
