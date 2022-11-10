@@ -12,7 +12,7 @@ export default function Footer() {
         <p className="footer__text">&#169;&nbsp;{year}</p>
         <div className="footer__links">
         <a className="link footer__link"
-            href="https://practicum.yandex.ru/"
+            href="https://practicum.yandex.ru"
             target="_blank"
             rel="noopener noreferrer"
           >
