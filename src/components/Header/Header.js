@@ -20,8 +20,8 @@ export default function Header() {
       </div>
 
       <Routes>
-        <Route path="/signin" element={<Link to="/signup" className="link">Регистрация</Link>}/>
-        <Route path="/signup" element={<Link to="/signin" className="header__button-link">Войти</Link>}/>
+        <Route path="/signin" element={<Link to="/signup" className="link header__link">Регистрация</Link>}/>
+        <Route path="/signup" element={<Link to="/signin" className="button header__button">Войти</Link>}/>
       </Routes>
     </header>
   );

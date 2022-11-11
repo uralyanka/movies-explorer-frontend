@@ -22,7 +22,7 @@ export default function Portfolio() {
             </a>
           </li>
           <li className="portfolio__item">
-            <a href="#project" className="link portfolio__link"
+            <a href="http://uralyanka.mesto.nomoredomains.icu/sign-in" className="link portfolio__link"
             target="_blank" rel="noopener noreferrer">
             <p className="portfolio__text-link">Одностраничное приложение</p>
             <img alt="Стрелка-ссылка" className="portfolio__arrow-link" src={arrow} />

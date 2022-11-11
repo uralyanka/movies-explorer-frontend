@@ -10,7 +10,7 @@
 }
 
 .techs__title {
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid #DADADA;
   font-weight: 400;
   font-size: 22px;
   line-height: 27px;
@@ -64,6 +64,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.4s ease;
+}
+
+.techs__grid-item:hover {
+  background-color: #3DDC84;
 }
 
 @media (max-width: 768px) {

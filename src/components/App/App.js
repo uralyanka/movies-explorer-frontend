@@ -1,12 +1,12 @@
-// import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-// import Movies from "../Movies/Movies";
+import Movies from "../Movies/Movies";
 // import SavedMovies from "../SavedMovies/SavedMovies";
 // import Profile from "../Profile/Profile";
-// import Register from "../Register/Register";
-// import Login from "../Login/Login";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 // import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
@@ -29,16 +29,17 @@ export default function App() {
       <div className="page">
         <Header />
 
-        <Main />
+        <Routes>
+          <Route exact path="/" element={<Main />} />
 
-        {/* <Routes>
-          <Route path="/" element={<Main />}/>
-          
-          <Route
-            path="/movies"
-            element={<Movies />}
-          />
-          
+          <Route path="/movies" element={<Movies />} />
+
+          <Route path="/signup" element={<Register />} />
+
+          <Route path="/signin" element={<Login />} />
+
+          {/* 
+
           <Route
             path="/saved-movies"
             element={<SavedMovies />}
@@ -49,17 +50,8 @@ export default function App() {
             element={<Profile />}
           />
 
-          <Route
-            path="/signup"
-            element={<Register />}
-          />
-
-          <Route
-            path="/signin"
-            element={<Login />}
-          />
-
-        </Routes> */}
+ */}
+        </Routes>
 
         <Footer />
       </div>
