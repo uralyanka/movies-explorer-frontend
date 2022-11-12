@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
+import Navigation from "../Navigation/Navigation";
 
 export default function Header() {
   return (
@@ -10,18 +11,11 @@ export default function Header() {
         <img alt="Лого сайта" className="header__logo" src={logo} />
       </Link>
 
-      <div className="header__links">
-        <Link to="/signup" className="link header__link">
-          Регистрация
-        </Link>
-        <Link to="/signin" className="button header__button">
-          Войти
-        </Link>
-      </div>
+      <Navigation />
 
       {/* <Routes>
         <Route path="/signin" element={<Link to="/signup" className="link header__link">Регистрация</Link>}/>
-        <Route path="/signup" element={<Link to="/signin" className="button header__button">Войти</Link>}/>
+        <Route exact path="/(movies|saved-movies|profile)" element={<Navigation />
       </Routes> */}
     </header>
   );
