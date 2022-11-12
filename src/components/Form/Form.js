@@ -17,10 +17,10 @@ export default function Form({
         <img alt="Лого сайта" src={logo} />
       </Link>
 
-      <h2 className="form__title">{title}</h2>
-
+      <h1 className="form__title">{title}</h1>
+      <div className="form__input-container">
       {children}
-
+      </div>
       <button
         type="submit"
         aria-label="Отправить данные"

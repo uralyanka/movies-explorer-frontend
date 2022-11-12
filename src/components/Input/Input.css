@@ -1,42 +1,42 @@
 .input__container {
-    margin: 0 0 24px;
+  margin: 0 0 24px;
 }
 
 .input__container:last-child {
-    margin: 0;
+  margin: 0;
 }
 
 .input__text {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: #8b8b8b;
-    padding: 0 0 5px;
-  }
-  
-  .input {
-    width: 100%;
-    box-sizing: border-box;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #424242;
-    color: #ffffff;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    margin: 0;
-    padding: 0 0 10px;
-  }
-  
-  .input:focus {
-    outline: none;
-    border-bottom: 1px solid #4285f4;
-  }
-  
-  .input__error {
-    display: none;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: #EE3465;
-  }
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #8b8b8b;
+  padding: 0 0 5px;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #424242;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0 0 10px;
+}
+
+.input:focus {
+  outline: none;
+  border-bottom: 1px solid #4285f4;
+}
+
+.input__error {
+  display: none;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+}
