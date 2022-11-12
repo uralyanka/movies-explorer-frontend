@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 
 export default function Header() {
@@ -19,10 +19,10 @@ export default function Header() {
         </Link>
       </div>
 
-      <Routes>
+      {/* <Routes>
         <Route path="/signin" element={<Link to="/signup" className="link header__link">Регистрация</Link>}/>
         <Route path="/signup" element={<Link to="/signin" className="button header__button">Войти</Link>}/>
-      </Routes>
+      </Routes> */}
     </header>
   );
 }

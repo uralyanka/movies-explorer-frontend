@@ -9,27 +9,26 @@ export default function Form({
   buttonText,
   underFormText,
   underFormLinkPath,
-  underFormLinkText
+  underFormLinkText,
 }) {
   return (
-    <div className="form">
+    <form className="form">
       <Link to="/" className="form__logo-link">
-        <img alt="Лого сайта" className="header__logo" src={logo} />
+        <img alt="Лого сайта" src={logo} />
       </Link>
 
       <h2 className="form__title">{title}</h2>
 
-      <form className={`auth-form__form`}>
-        <fieldset className="auth-form__input-container">{children}</fieldset>
+      {children}
 
-        <button
-          type="submit"
-          aria-label="Отправить данные"
-          className="button auth-form__submit-btn"
-        >
-          {buttonText}
-        </button>
-      </form>
+      <button
+        type="submit"
+        aria-label="Отправить данные"
+        className="button form__submit-btn"
+      >
+        {buttonText}
+      </button>
+
       <div className="form__under-form">
         <p className="form__text-under-form">
           {`${underFormText} `}
@@ -38,6 +37,6 @@ export default function Form({
           </Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }

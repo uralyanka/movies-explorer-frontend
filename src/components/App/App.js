@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Header from "../Header/Header";
+// import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 // import SavedMovies from "../SavedMovies/SavedMovies";
 // import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 // import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
 
@@ -27,7 +27,7 @@ export default function App() {
         />
       </Helmet>
       <div className="page">
-        <Header />
+        {/* <Header /> */}
 
         <Routes>
           <Route exact path="/" element={<Main />} />
@@ -53,7 +53,7 @@ export default function App() {
  */}
         </Routes>
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

@@ -17,7 +17,7 @@
 }
 
 .link {
-  color: #ffffff;
+  color: #FFFFFF;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.4s ease;
@@ -28,11 +28,11 @@
 }
 
 .button {
-  transition: opacity 0.4s ease;
   cursor: pointer;
   border: none;
   border-radius: 3px;
   text-decoration: none;
+  transition: opacity 0.4s ease;
 }
 
 .button:hover {

@@ -1,8 +1,11 @@
+import React from "react";
 import Form from "../Form/Form";
+import "./Register.css";
+import Input from "../Input/Input";
 
 export default function Register() {
   return (
-    <main className="content content_type_auth">
+    <main className="register">
       <Form
         title="Добро пожаловать!"
         buttonText="Зарегистрироваться"
@@ -10,27 +13,26 @@ export default function Register() {
         underFormLinkPath="/signin"
         underFormLinkText="Войти"
       >
-        <input
+        <Input
+          inputText="Имя"
+          name="Имя"
           type="text"
-          placeholder="Имя"
           required
-          className="form__input"
         />
 
-        <input
+        <Input
+          inputText="Email"
+          name="Email"
           type="email"
-          placeholder="Email"
           required
-          className="form__input"
         />
 
-        <input
+        <Input
+          inputText="Пароль"
           type="password"
-          placeholder="Пароль"
           minLength="2"
           maxLength="40"
           required
-          className="form__input"
         />
       </Form>
     </main>
