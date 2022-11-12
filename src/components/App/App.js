@@ -7,6 +7,7 @@ import Movies from "../Movies/Movies";
 // import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import NotFound from "../NotFound/NotFound";
 // import Footer from "../Footer/Footer";
 // import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
@@ -37,6 +38,8 @@ export default function App() {
           <Route path="/signup" element={<Register />} />
 
           <Route path="/signin" element={<Login />} />
+
+          <Route path="*" element={<NotFound />} />
 
           {/* 
 

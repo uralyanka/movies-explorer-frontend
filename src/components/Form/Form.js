@@ -32,7 +32,7 @@ export default function Form({
       <div className="form__under-form">
         <p className="form__text-under-form">
           {`${underFormText} `}
-          <Link className="form__link-under-form" to={underFormLinkPath}>
+          <Link className="link form__link-under-form" to={underFormLinkPath}>
             {underFormLinkText}
           </Link>
         </p>

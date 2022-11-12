@@ -45,15 +45,9 @@
 }
 
 .form__link-under-form {
-  color: #4285F4;
-  text-decoration: none;
-  cursor: pointer;
-  transition: opacity 0.4s ease;
+  color: #4285F4 !important;
 }
 
-.form__link-under-form:hover {
-  opacity: 0.6;
-}
 
 @media (max-width: 425px) {
 

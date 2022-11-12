@@ -25,6 +25,7 @@ export default function Register() {
           name="Email"
           type="email"
           required
+          autoComplete="off"
         />
 
         <Input
