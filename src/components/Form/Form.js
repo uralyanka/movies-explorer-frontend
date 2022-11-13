@@ -18,9 +18,7 @@ export default function Form({
       </Link>
 
       <h1 className="form__title">{title}</h1>
-      <div className="form__input-container">
-      {children}
-      </div>
+      <div className="form__input-container">{children}</div>
       <button
         type="submit"
         aria-label="Отправить данные"

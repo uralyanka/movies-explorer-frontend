@@ -36,7 +36,7 @@ export default function HeaderLogIn() {
         </Link>
       </div>
 
-      <div className="header__mobile-navigation">
+      <div className="header__navigation">
           <button className="button header__navigation-btn">
             <img
               className="header__pic-navigation-btn"

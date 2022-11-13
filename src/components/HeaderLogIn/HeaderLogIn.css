@@ -47,7 +47,7 @@
   margin: 0 auto;
 }
 
-.header__mobile-navigation {
+.header__navigation {
   display: none;
 }
 
@@ -62,7 +62,7 @@
   .header__profile-links {
     display: none;
   }
-  .header__mobile-navigation {
+  .header__navigation {
     display: block;
   }
 }

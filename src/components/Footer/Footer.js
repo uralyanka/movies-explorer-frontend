@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.css";
+// import Navigation from "../Navigation/Navigation";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -28,6 +29,8 @@ export default function Footer() {
           </a>
         </div>
       </div>
+
+{/* <Navigation/> */}
     </footer>
   );
 }

@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import HeaderLogIn from "../HeaderLogIn/HeaderLogIn";
 import HeaderLogOff from "../HeaderLogOff/HeaderLogOff";
 
-
 export default function Header() {
   return (
     <header className="header">
