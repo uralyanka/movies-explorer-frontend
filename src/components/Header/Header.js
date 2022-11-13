@@ -9,7 +9,7 @@ export default function Header() {
     <header className="header">
 
       <Routes>
-        <Route exact path="/" element={<HeaderLogOff />}/>
+        <Route exact path="/" element={<HeaderLogIn/>}/>
         <Route exact path="/(movies|saved-movies|profile)" element={<HeaderLogIn />}/>
       </Routes>
 
