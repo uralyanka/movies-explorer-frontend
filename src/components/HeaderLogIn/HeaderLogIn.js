@@ -7,6 +7,7 @@ import navigation from "../../images/navigation.svg";
 
 export default function HeaderLogIn() {
   return (
+    <header className="header">
     <div className="header__content">
       <Link to="/" className="header__logo-link">
         <img alt="Лого сайта" className="header__logo" src={logo} />
@@ -46,5 +47,6 @@ export default function HeaderLogIn() {
           </button>
       </div>
     </div>
+    </header>
   );
 }

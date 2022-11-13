@@ -15,7 +15,7 @@ export default function SearchForm() {
       </div>
 
       <div className="search-form__filter">
-        <div class="container">
+        <div class="search-form__filter-container">
           <label class="search-form__filter-switch">
             <input type="checkbox" /> <div></div>
           </label>
