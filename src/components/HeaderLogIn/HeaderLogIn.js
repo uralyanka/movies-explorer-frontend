@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./HeaderLogIn.css";
 import profile from "../../images/profile.svg";
 import logo from "../../images/logo.svg";
+import navigation from "../../images/navigation.svg";
 
 export default function HeaderLogIn() {
   return (
@@ -33,6 +34,16 @@ export default function HeaderLogIn() {
             ></img>
           </button>
         </Link>
+      </div>
+
+      <div className="header__mobile-navigation">
+          <button className="button header__navigation-btn">
+            <img
+              className="header__pic-navigation-btn"
+              src={navigation}
+              alt="Лого профиля"
+            ></img>
+          </button>
       </div>
     </div>
   );

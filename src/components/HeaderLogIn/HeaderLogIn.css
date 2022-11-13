@@ -9,6 +9,10 @@
   height: 38px;
 }
 
+.header__movie-links {
+  display: block;
+}
+
 .header__movie-link {
   font-weight: 500;
   font-size: 13px;
@@ -19,6 +23,10 @@
 .header__movie-link:last-child {
   font-weight: 400;
   margin-right: 0;
+}
+
+.header__profile-links {
+  display: block;
 }
 
 .header__profile-link {
@@ -36,6 +44,25 @@
 }
 
 .header__logo-profile-btn {
-  display: block;
   margin: 0 auto;
+}
+
+.header__mobile-navigation {
+  display: none;
+}
+
+.header__navigation-btn {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .header__movie-links {
+    display: none;
+  }
+  .header__profile-links {
+    display: none;
+  }
+  .header__mobile-navigation {
+    display: block;
+  }
 }
