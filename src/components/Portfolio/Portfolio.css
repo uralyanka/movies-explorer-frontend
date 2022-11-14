@@ -12,7 +12,7 @@
 .portfolio__title {
   font-weight: 400;
   font-size: 18px;
-  line-height: 20px;
+  line-height: calc(20 / 18);
   color: #8b8b8b;
   margin: 0 0 50px;
 }
@@ -40,8 +40,42 @@
 .portfolio__text-link {
   font-weight: 400;
   font-size: 30px;
-  line-height: 50px;
+  line-height: calc(50 / 30);
   letter-spacing: -0.04em;
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 900px) and (min-width: 551px) {
+  .portfolio__content {
+    padding: 0 0 90px;
+  }
+
+  .portfolio__title {
+    font-size: 18px;
+    line-height: calc(20 / 18);
+  }
+
+  .portfolio__text-link {
+    font-size: 28px;
+    line-height: calc(50 / 28);
+  }
+}
+
+@media (max-width: 550px) {
+  .portfolio__content {
+    width: 92%;
+    padding: 0 0 70px;
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: calc(20 / 14);
+    margin: 0 0 40px;
+  }
+
+  .portfolio__text-link {
+    font-size: 18px;
+    line-height: calc(28 / 18);
+  }
 }
