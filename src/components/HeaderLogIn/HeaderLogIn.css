@@ -32,17 +32,23 @@
 
 .header__profile-links {
   display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 17px;
 }
 
 .header__profile-link {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.1;
-  margin-right: 17px;
 }
 
 .header__profile-btn {
-  background: #313131 !important;
+  background-image: url(../../images/profile.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #313131;
   border-radius: 4px !important;
   width: 26px;
   height: 30px;

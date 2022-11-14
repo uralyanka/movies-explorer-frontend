@@ -8,7 +8,7 @@ export default function Footer() {
       <p className="footer__project-name">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
-      <div className="footer__project-links">
+      <div className="footer__project-info">
         <p className="footer__text">&#169;&nbsp;{year}</p>
         <div className="footer__links">
           <a

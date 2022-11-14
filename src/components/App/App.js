@@ -13,7 +13,9 @@ import NotFound from "../NotFound/NotFound";
 import "./App.css";
 
 export default function App() {
-
+  const isLoggedIn = true;
+  // true - интерфейс авторизованного пользователя
+  // false - интерфейс неавторизованного пользователя
 
   return (
     <div className="app">
@@ -30,15 +32,10 @@ export default function App() {
         />
       </Helmet>
       <div className="page">
-        {/* <Header /> */}
-
         <Routes>
-          <Route exact path="/" element={<Main />} />
+          <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
 
-          <Route
-            path="/movies"
-            element={<Movies />}
-          />
+          <Route path="/movies" element={<Movies isLoggedIn={isLoggedIn} />} />
 
           <Route path="/signup" element={<Register />} />
 
@@ -60,8 +57,6 @@ export default function App() {
 
  */}
         </Routes>
-
-        {/* <Footer /> */}
       </div>
     </div>
   );
