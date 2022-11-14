@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-// import Navigation from "../Navigation/Navigation";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -12,7 +11,8 @@ export default function Footer() {
       <div className="footer__project-links">
         <p className="footer__text">&#169;&nbsp;{year}</p>
         <div className="footer__links">
-        <a className="link footer__link"
+          <a
+            className="link footer__link"
             href="https://practicum.yandex.ru"
             target="_blank"
             rel="noopener noreferrer"
@@ -29,8 +29,6 @@ export default function Footer() {
           </a>
         </div>
       </div>
-
-{/* <Navigation/> */}
     </footer>
   );
 }

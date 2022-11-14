@@ -2,7 +2,7 @@
   width: 90%;
   font-weight: 400;
   font-size: 13px;
-  line-height: 16px;
+  line-height: calc(16 / 13);
   margin: 0 auto;
   padding: 79px 0 0;
 }
@@ -10,7 +10,7 @@
 .footer__project-name {
   border-bottom: 1px solid #424242;
   text-align: center;
-  color: #8B8B8B;
+  color: #8b8b8b;
   margin: 0;
   padding: 0 0 20px;
 }
@@ -29,6 +29,31 @@
   justify-content: space-between;
 }
 
-.footer__link:first-child {
-  margin-right: 20px;
+.footer__links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 550px) {
+  .footer {
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+
+  .footer__project-links {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .footer__links {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer__text {
+    margin: 40px 0 0;
+    color: #8b8b8b !important;
+  }
 }
