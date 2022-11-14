@@ -2,18 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 import profile from "../../images/profile.svg";
-import closebtn from "../../images/closebtn.svg";
 
-export default function Navigation() {
+export default function Navigation({ isOpen, onClose }) {
   return (
-    <div className="navigation">
+    <div className={isOpen ? `navigation navigation_opened` : `navigation`}>
       <div className="navigation__container">
-        <button className="button navigation__close-btn">
-          <img
-            className="navigation__logo-close-btn"
-            src={closebtn}
-            alt="Кнопка для закрытия"
-          ></img>
+        <button
+          className="button navigation__close-btn"
+          type="button"
+          onClick={onClose}
+        >
         </button>
 
         <nav className="navigation_main-links">

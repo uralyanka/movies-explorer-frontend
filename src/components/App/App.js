@@ -13,6 +13,8 @@ import NotFound from "../NotFound/NotFound";
 import "./App.css";
 
 export default function App() {
+
+
   return (
     <div className="app">
       <Helmet>
@@ -33,7 +35,10 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
 
-          <Route path="/movies" element={<Movies />} />
+          <Route
+            path="/movies"
+            element={<Movies />}
+          />
 
           <Route path="/signup" element={<Register />} />
 

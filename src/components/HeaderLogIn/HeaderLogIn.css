@@ -57,7 +57,9 @@
 }
 
 .header__navigation-btn {
-  padding: 0;
+  width: 40px;
+  height: 43px;
+  background: url(../../images/navigation.svg) no-repeat center / cover;
 }
 
 @media (max-width: 768px) {
