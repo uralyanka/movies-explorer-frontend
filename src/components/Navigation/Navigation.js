@@ -13,13 +13,34 @@ export default function Navigation({ isOpen, onClose }) {
         ></button>
 
         <nav className="navigation_main-links">
-          <NavLink to="/" className="link navigation_link">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "link navigation_link navigation__link_active"
+                : "link navigation_link"
+            }
+          >
             Главная
           </NavLink>
-          <NavLink to="/movies" className="link navigation_link">
+          <NavLink
+            to="/movies"
+            className={({ isActive }) =>
+              isActive
+                ? "link navigation_link navigation__link_active"
+                : "link navigation_link"
+            }
+          >
             Фильмы
           </NavLink>
-          <NavLink to="/saved-movies" className="link navigation_link">
+          <NavLink
+            to="/saved-movies"
+            className={({ isActive }) =>
+              isActive
+                ? "link navigation_link navigation__link_active"
+                : "link navigation_link"
+            }
+          >
             Сохранённые фильмы
           </NavLink>
         </nav>
