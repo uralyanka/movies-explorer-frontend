@@ -14,26 +14,30 @@
 .movies-card__title {
   font-weight: 500;
   font-size: 15px;
-  line-height: calc(18px / 15px);
+  line-height: calc(18/15);
   padding: 0;
   margin: 0 0 9px;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .movies-card__duration {
   font-weight: 400;
   font-size: 11px;
-  line-height: calc(11px / 13px);
+  line-height: calc(13/11);
   color: #8b8b8b;
 }
 
 .movie-card__save-btn {
+  background-image: url(../../images/saveicon.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #313131;
+  border-radius: 50% !important;
   width: 30px;
   height: 30px;
-  background: url(../../images/saveicon.svg) no-repeat center / cover;
-}
-
-.movie-card__pic-save-btn {
-  margin: 0 auto;
 }
 
 .movies-card__cover {
