@@ -1,11 +1,10 @@
-import React from "react";
 import Form from "../Form/Form";
 import "./Login.css";
 import Input from "../Input/Input";
 
 export default function Login() {
   return (
-    <main className="register">
+    <main className="login">
       <Form
         title="Рады видеть!"
         buttonText="Войти"

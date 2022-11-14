@@ -8,7 +8,7 @@
   border-bottom: 1px solid #dadada;
   font-weight: 400;
   font-size: 22px;
-  line-height: 27px;
+  line-height: calc(27/22);
   letter-spacing: -0.04em;
   padding: 0 0 23px;
 }
@@ -23,7 +23,7 @@
 .about-project__stages-description-title {
   font-weight: 400;
   font-size: 20px;
-  line-height: 24px;
+  line-height: calc(24/20);
   letter-spacing: -0.04em;
   margin: 0 0 26px 0;
 }
@@ -31,7 +31,7 @@
 .about-project__stages-description-text {
   font-weight: 400;
   font-size: 14px;
-  line-height: 20px;
+  line-height: calc(20/14);
   max-width: 500px;
   margin: 0;
   padding: 0;
@@ -44,7 +44,7 @@
   width: 100%;
   font-weight: 400;
   font-size: 14px;
-  line-height: 17px;
+  line-height: calc(17/11);
   text-align: center;
   margin: 0;
   padding: 0;
@@ -68,3 +68,69 @@
   color: #8b8b8b;
   margin: 14px 0 0;
 }
+
+@media (max-width: 900px) and (min-width: 551px) {
+  .about-project {
+    padding: 90px 0;
+  }
+
+  .about-project__title {
+    font-size: 22px;
+    line-height: calc(27/22);
+  }
+
+  .about-project__stages-description-title {
+    font-size: 22px;
+    line-height: calc(24/22);
+  }
+
+  .about-project__stages-description-text {
+    font-size: 12px;
+    line-height: calc(18/12);
+  }
+
+  .about-project__timeline-grid-container {
+    grid-template-columns: 140px 1fr;
+    font-size: 14px;
+    line-height: calc(17/14);
+  }
+}
+
+@media (max-width: 550px) {
+  .about-project {
+    width: 92%;
+    padding: 70px 0;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+    line-height: calc(22/18);
+  }
+
+  .about-project__stages-flex-container {
+    flex-direction: column;
+    gap: 56px;
+    padding: 60px 0;
+  }
+
+  .about-project__stages-description-title {
+    font-size: 18px;
+    line-height: calc(22/18);
+  }
+
+  .about-project__stages-description-text {
+    font-size: 11px;
+    line-height: calc(16/11);
+  }
+
+  .about-project__timeline-grid-container {
+    grid-template-columns: 100px 1fr;
+    font-size: 13px;
+    line-height: calc(13/11);
+  }
+
+  .about-project__timeline-description {
+    margin: 9px 0 0;
+  }
+}
+

@@ -5,7 +5,7 @@ export default function Profile({ isLoggedIn }) {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
-      <section className="profile">
+      <main className="profile">
         <h1 className="profile__title">Привет, Геннадий!</h1>
         <div className="profile__info">
           <div className="profile__input-container">
@@ -50,7 +50,7 @@ export default function Profile({ isLoggedIn }) {
             Выйти из аккаунта
           </button>
         </div>
-      </section>
+      </main>
     </>
   );
 }

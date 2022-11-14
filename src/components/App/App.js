@@ -11,7 +11,7 @@ import NotFound from "../NotFound/NotFound";
 import "./App.css";
 
 export default function App() {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   // true - интерфейс авторизованного пользователя
   // false - интерфейс неавторизованного пользователя
 

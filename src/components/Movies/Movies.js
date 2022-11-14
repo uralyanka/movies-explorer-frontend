@@ -10,7 +10,7 @@ export default function Movies({ isLoggedIn }) {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
-      <section className="movies">
+      <main className="movies">
         <SearchForm />
         <MoviesCardList>
           <MoviesCard
@@ -60,7 +60,7 @@ export default function Movies({ isLoggedIn }) {
           />
         </MoviesCardList>
         <Preloader />
-      </section>
+      </main>
       <Footer />
     </>
   );
