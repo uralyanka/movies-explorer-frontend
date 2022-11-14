@@ -11,6 +11,7 @@
   border: 1.5px solid rgb(170, 170, 170, 0.3);
   border-radius: 8px;
   padding: 10px;
+  height: 52px;
 }
 
 .search-form__input {
@@ -19,7 +20,7 @@
   border: none;
   font-weight: 400;
   font-size: 18px;
-  line-height: 1.1px;
+  line-height: calc(20px / 18px);
   color: #ffffff;
   padding-left: 15px;
 }
@@ -33,26 +34,26 @@
 
 .search-form__btn {
   width: 10%;
+  height: 100%;
   background-color: #4285f4 !important;
   border-radius: 5px;
   font-weight: 500;
   font-size: 14px;
-  line-height: 1.2;
+  line-height: calc(18px / 14px);
   color: #ffffff;
-  padding: 17px 20px;
 }
 
 .search-form__filter {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   margin: 26px 0 43px;
 }
 
 .search-form__filter-name {
   font-weight: 400;
   font-size: 13px;
-  line-height: 1.4;
+  line-height: calc(18px / 13px);
 }
 
 .search-form__filter-switch input {
@@ -86,4 +87,48 @@
   -webkit-transform: translate3d(100%, 0, 0);
   -moz-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
+}
+
+@media (max-width: 900px) and (min-width: 551px) {
+  .search-form__input {
+    width: 80%;
+  }
+  .search-form__btn {
+    width: 20%;
+  }
+}
+
+@media (max-width: 550px) {
+  .search-form__input-container {
+    height: 44px;
+    padding: 6px;
+  }
+  .search-form__input {
+    width: 75%;
+    font-size: 16px;
+    line-height: calc(16px / 16px);
+  }
+  .search-form__btn {
+    width: 25%;
+  }
+
+  .search-form__filter {
+    gap: 13px;
+    margin: 31px 0 64px;
+  }
+
+  .search-form__filter-name {
+    font-size: 11px;
+    line-height: calc(18px / 11px);
+  }
+
+  .search-form__filter-switch {
+    height: 0.75em;
+    width: 1.5em;
+  }
+
+  .search-form__filter-switch div {
+    height: 0.75em;
+    width: 0.75em;
+  }
 }

@@ -5,7 +5,7 @@ import profile from "../../images/profile.svg";
 
 export default function Navigation({ isOpen, onClose }) {
   return (
-    <div className={isOpen ? `navigation navigation_opened` : `navigation`}>
+    <div className={`navigation ${isOpen && "navigation_opened"}`}>
       <div className="navigation__container">
         <button
           className="button navigation__close-btn"
