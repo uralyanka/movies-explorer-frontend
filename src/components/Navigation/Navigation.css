@@ -71,7 +71,7 @@
 .navigation__profile-link {
   font-weight: 500;
   font-size: 14px;
-  line-height: 1.1;
+  line-height: calc(16/14);
 }
 
 .navigation__profile-btn {

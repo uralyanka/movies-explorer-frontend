@@ -16,7 +16,7 @@
 .header__movie-link {
   font-weight: 500;
   font-size: 13px;
-  line-height: 1.4;
+  line-height: calc(18/13);
   margin-right: 16px;
 }
 
@@ -36,7 +36,7 @@
 .header__profile-link {
   font-weight: 500;
   font-size: 14px;
-  line-height: 1.1;
+  line-height: calc(16/14);
 }
 
 .header__profile-btn {
