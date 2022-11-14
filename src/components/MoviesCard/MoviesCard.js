@@ -1,6 +1,4 @@
-import React from "react";
 import "./MoviesCard.css";
-// import { Route, Switch } from "react-router-dom";
 
 export default function MoviesCard({ movieTitle, movieDuration, movieCover }) {
   return (

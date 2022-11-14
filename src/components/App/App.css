@@ -8,7 +8,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 0 auto;
   font-family: "Inter", Arial, sans-serif;
   color: #ffffff;
@@ -29,6 +28,7 @@
 }
 
 .button {
+  background-color: transparent;
   cursor: pointer;
   border: none;
   border-radius: 3px;

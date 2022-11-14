@@ -13,7 +13,7 @@ export default function Movies({ isLoggedIn }) {
       <section className="saved-movies">
         <SearchForm />
         <MoviesCardList>
-        <MoviesCard
+          <MoviesCard
             movieTitle="Лестница в небо"
             movieDuration="3ч 20м"
             movieCover="https://design-mate.ru/upload/images/post/post_1465_p5.jpg"
@@ -32,7 +32,8 @@ export default function Movies({ isLoggedIn }) {
             movieTitle="Коллекционеры кроссовок"
             movieDuration="1ч 55м"
             movieCover="https://design-mate.ru/upload/images/post/post_1465_p8.jpg"
-          /></MoviesCardList>
+          />
+        </MoviesCardList>
         <Preloader />
       </section>
       <Footer />

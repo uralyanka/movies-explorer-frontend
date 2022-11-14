@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Main from "../Main/Main";
-import Movies from "../Movies/Movies";
-import SavedMovies from "../SavedMovies/SavedMovies";
-// import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import Profile from "../Profile/Profile";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
 // import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
@@ -34,13 +34,13 @@ export default function App() {
           <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/signin" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} />} />
           <Route path="/movies" element={<Movies isLoggedIn={isLoggedIn} />} />
           <Route
             path="/saved-movies"
             element={<SavedMovies isLoggedIn={isLoggedIn} />}
           />
-          {/* <Route path="/profile" element={<Profile />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
