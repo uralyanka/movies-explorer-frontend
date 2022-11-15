@@ -1,0 +1,139 @@
+.about-me {
+  width: 90%;
+  margin: 0 auto;
+  padding: 110px 0 101px;
+}
+
+.about-me__title {
+  border-bottom: 1px solid #dadada;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: calc(27 / 20);
+  letter-spacing: -0.04em;
+  padding: 0 0 23px;
+}
+
+.about-me__flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 66px 0 0;
+}
+
+.about-me__bio {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: 0;
+  padding: 0;
+}
+
+.about-me__bio-name {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: calc(58/50);
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+}
+
+.about-me__bio-job {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: calc(20 / 18);
+  margin: 18px 0 26px;
+  padding: 0;
+}
+
+.about-me__bio-description {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: calc(22 / 14);
+  margin: 0;
+  padding: 0;
+}
+
+.about-me__photo {
+  width: 270px;
+  height: 100%;
+  border-radius: 10px;
+  image-rendering: pixelated;
+}
+
+.about-me__github-link {
+  margin: 99px 0 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: calc(17 / 14);
+}
+
+@media (max-width: 760px) {
+  .about-me__flex-container {
+    flex-direction: column-reverse;
+    gap: 40px;
+    padding: 60px 0 0;
+  }
+
+  .about-me__bio {
+    max-width: 100%;
+  }
+
+  .about-me__photo {
+    width: 292px;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 551px) {
+  .about-me {
+    padding: 90px 0 91px;
+  }
+
+  .about-me__bio {
+    max-width: 50%;
+  }
+
+  .about-me__bio-name {
+    font-size: 40px;
+    line-height: calc(40 / 40);
+  }
+
+  .about-me__bio-job {
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .about-me__bio-description {
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .about-me__github-link {
+    margin: 87px 0 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .about-me {
+    width: 92%;
+    padding: 70px 0;
+  }
+
+  .about-me__bio-name {
+    font-size: 36px;
+    line-height: calc(36 / 30);
+  }
+
+  .about-me__bio-job {
+    font-size: 11px;
+    line-height: calc(16 / 11);
+  }
+
+  .about-me__bio-description {
+    font-size: 11px;
+    line-height: calc(16 / 11);
+  }
+
+  .about-me__github-link {
+    margin: 40px 0 0;
+  }
+}
