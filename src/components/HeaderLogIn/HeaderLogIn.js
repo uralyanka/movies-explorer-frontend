@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./HeaderLogIn.css";
 import logo from "../../images/logo.svg";
 
@@ -11,21 +11,35 @@ export default function HeaderLogIn({ onNavigation }) {
       </Link>
 
       <div className="header__movie-links">
-        <Link to="/movies" className="link header__movie-link">
+        <NavLink
+          to="/movies"
+          className={({ isActive }) =>
+            isActive
+              ? "link header__movie-link header__movie-link_active"
+              : "link header__movie-link"
+          }
+        >
           Фильмы
-        </Link>
-        <Link to="/saved-movies" className="link header__movie-link">
+        </NavLink>
+        <NavLink
+          to="/saved-movies"
+          className={({ isActive }) =>
+            isActive
+              ? "link header__movie-link header__movie-link_active"
+              : "link header__movie-link"
+          }
+        >
           Сохранённые фильмы
-        </Link>
+        </NavLink>
       </div>
 
       <div className="header__profile-links">
-        <Link to="/profile" className="link header__profile-link">
+        <NavLink to="/profile" className="link header__profile-link">
           Аккаунт
-        </Link>
-        <Link to="/profile" className="header__profile-link">
+        </NavLink>
+        <NavLink to="/profile" className="header__profile-link">
           <button className="button header__profile-btn" type="button"></button>
-        </Link>
+        </NavLink>
       </div>
 
       <div className="header__navigation">

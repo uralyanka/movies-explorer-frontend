@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Helmet>
+      <Helmet htmlAttributes={{ lang: 'ru' }}>
         <meta charSet="utf-8" />
         <title>YA.Diploma</title>
         <link
