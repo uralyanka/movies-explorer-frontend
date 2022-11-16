@@ -11,7 +11,11 @@ export default function Form({
   underFormLinkPath,
   underFormLinkText,
   onSubmit,
+  isSubmitDisabled,
 }) {
+
+  const submitButtonClassName = `button form__submit-btn ${isSubmitDisabled && "form__submit-btn_inactive"}`;
+
   return (
     <form className="form" onSubmit={onSubmit}>
       <Link to="/" className="form__logo-link">
@@ -23,7 +27,8 @@ export default function Form({
       <button
         type="submit"
         aria-label="Отправить данные"
-        className="button form__submit-btn"
+        className={submitButtonClassName}
+        disabled={isSubmitDisabled}
       >
         {buttonText}
       </button>

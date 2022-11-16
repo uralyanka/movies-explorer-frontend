@@ -23,10 +23,10 @@ export default function App() {
   const navigate = useNavigate();
 
   // Регистрация
-  function handleRegister(userRegisterData) {
+  function handleRegister(name, email, password) {
     console.log('Я внутри функции handleRegister');
     auth
-      .register(userRegisterData)
+      .register(name, email, password)
       .then((res) => {
         console.log('Я после запроса к auth в handleRegister');
         navigate("/movies");
