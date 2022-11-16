@@ -10,9 +10,10 @@ export default function Form({
   underFormText,
   underFormLinkPath,
   underFormLinkText,
+  onSubmit,
 }) {
   return (
-    <form className="form">
+    <form className="form" onSubmit={onSubmit}>
       <Link to="/" className="form__logo-link">
         <img alt="Лого сайта" src={logo} />
       </Link>
