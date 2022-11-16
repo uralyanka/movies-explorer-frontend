@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Main from "../Main/Main";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
@@ -23,12 +24,13 @@ export default function App() {
 
   // Регистрация
   function handleRegister(userRegisterData) {
-    console.log('Я внутри функции');
+    console.log('Я внутри функции handleRegister');
     auth
       .register(userRegisterData)
       .then((res) => {
-        console.log('Я после запроса к auth');
+        console.log('Я после запроса к auth в handleRegister');
         navigate("/movies");
+        setLoggedIn(true);
       })
       .catch((err) => {
         if (err === "Ошибка: 400")
@@ -37,22 +39,24 @@ export default function App() {
       });
   }
 
-  // // Авторизация
-  // function handleLogin(name, email, password) {
-  //   auth
-  //     .signin(name, email, password)
-  //     .then((res) => {
-  //       setLoggedIn(true);
-  //       navigate("/movies");
-  //     })
-  //     .catch((err) => {
-  //       if (err === "Ошибка: 400")
-  //         return console.log("не передано одно из полей");
-  //       if (err === "Ошибка: 401")
-  //         return console.log("пользователь с email не найден");
-  //       console.log(err);
-  //     });
-  // }
+  // Авторизация
+  function handleLogin(userLoginData) {
+    console.log('Я внутри функции handleLogin');
+    auth
+      .signin(userLoginData)
+      .then((res) => {
+        console.log('Я после запроса к auth в handleLogin');
+        setLoggedIn(true);
+        navigate("/movies");
+      })
+      .catch((err) => {
+        if (err === "Ошибка: 400")
+          return console.log("не передано одно из полей");
+        if (err === "Ошибка: 401")
+          return console.log("пользователь с email не найден");
+        console.log(err);
+      });
+  }
 
   // // Аутентификация при повторном входе
   // function handleCheckToken() {
@@ -75,15 +79,15 @@ export default function App() {
   //   handleCheckToken();
   // }, []);
 
-  // function handleLogOut() {
-  //   auth
-  //     .signout()
-  //     .then((res) => {
-  //       setLoggedIn(false);
-  //       navigate("/signin");
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
+  function handleLogOut() {
+    auth
+      .signout()
+      .then((res) => {
+        setLoggedIn(false);
+        navigate("/signin");
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="app">
@@ -100,16 +104,17 @@ export default function App() {
         />
       </Helmet>
       <div className="page">
+      <CurrentUserContext.Provider value={'currentUser'}>
         <Routes>
           <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           <Route
             path="/signup"
             element={<Register handleRegister={handleRegister} />}
           />
-          <Route path="/signin" element={<Login />} />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           <Route
             path="/profile"
-            element={<Profile isLoggedIn={isLoggedIn} />}
+            element={<Profile isLoggedIn={isLoggedIn} handleLogOut={handleLogOut} />}
           />
           <Route path="/movies" element={<Movies isLoggedIn={isLoggedIn} />} />
           <Route
@@ -118,6 +123,7 @@ export default function App() {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </CurrentUserContext.Provider>
       </div>
     </div>
   );

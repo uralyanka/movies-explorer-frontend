@@ -1,7 +1,7 @@
 import "./Profile.css";
 import Header from "../Header/Header";
 
-export default function Profile({ isLoggedIn }) {
+export default function Profile({ isLoggedIn, handleLogOut }) {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
@@ -46,6 +46,7 @@ export default function Profile({ isLoggedIn }) {
             type="button"
             aria-label="Выйти из профиля"
             className="button profile__signout-btn"
+            onClick={handleLogOut}
           >
             Выйти из аккаунта
           </button>
