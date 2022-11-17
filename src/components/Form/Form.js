@@ -12,11 +12,11 @@ export default function Form({
   underFormLinkText,
   onSubmit,
   isSubmitDisabled,
-  requestRegisterError,
+  requestError,
 }) {
 
-  const textRequestError = requestRegisterError.textErr;
-  const classNameRequestError = requestRegisterError.classNameErr;
+  const textRequestError = requestError.textErr;
+  const classNameRequestError = requestError.classNameErr;
 
   const requestErrorClassName = `form__request-error form__request-error_${classNameRequestError}`;
   const submitButtonClassName = `button form__submit-btn ${isSubmitDisabled && "form__submit-btn_inactive"}`;

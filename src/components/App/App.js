@@ -14,16 +14,8 @@ import * as auth from "../../utils/auth";
 import "./App.css";
 
 export default function App() {
-  // const isLoggedIn = true;
-  // true - интерфейс авторизованного пользователя
-  // false - интерфейс неавторизованного пользователя
-
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    _id: "",
-  });
+  const [userData, setUserData] = useState({ name: "", email: "" });
 
   const [requestRegisterError, setRequestRegisterError] = useState(false);
   const [requestLoginError, setRequestLoginError] = useState(false);
@@ -32,13 +24,13 @@ export default function App() {
 
   // Регистрация
   function handleRegister(name, email, password) {
-    console.log("Я внутри функции handleRegister");
-    console.log(name, email, password);
+    // console.log("Я внутри функции handleRegister");
+    // console.log(name, email, password);
     auth
       .register(name, email, password)
       .then((res) => {
-        console.log("Я после запроса к auth в handleRegister");
-        console.log(res.name, res.email);
+        // console.log("Я после запроса к auth в handleRegister");
+        // console.log(res.name, res.email);
         setUserData({ name: res.name, email: res.email });
         setLoggedIn(true);
         navigate("/movies");
@@ -61,13 +53,15 @@ export default function App() {
 
   // Авторизация
   function handleLogin(email, password) {
-    console.log("Я внутри функции handleLogin");
-    console.log(email, password);
+    // console.log("Я внутри функции handleLogin");
+    // console.log(email, password);
     auth
       .signin(email, password)
       .then((res) => {
-        console.log("Я после запроса к auth в handleLogin");
+        // console.log("Я после запроса к auth в handleLogin");
         setLoggedIn(true);
+        // console.log(res);
+        setUserData({ name: res.name, email: res.email });
         navigate("/movies");
       })
       .catch((err) => {
@@ -95,10 +89,19 @@ export default function App() {
         navigate("/movies");
       })
       .catch((err) => {
-        if (err === "Ошибка: 400")
-          return console.log("Токен не передан или передан не в том формате");
-        if (err === "Ошибка: 401")
-          return console.log("Переданный токен некорректен");
+        // if (err === "Ошибка: 401") {
+        //   setRequestLoginError({
+        //     classNameErr: "error-active",
+        //     textErr:
+        //       "При авторизации произошла ошибка. Переданный токен некорректен.",
+        //   });
+        // } else {
+        //   setRequestLoginError({
+        //     classNameErr: "error-active",
+        //     textErr:
+        //       "При авторизации произошла ошибка. Токен не передан или передан не в том формате.",
+        //   });
+        // }
         console.log(err);
       });
   }
@@ -112,6 +115,7 @@ export default function App() {
       .signout()
       .then((res) => {
         setLoggedIn(false);
+        setUserData({});
         navigate("/");
       })
       .catch((err) => console.log(err));
@@ -132,7 +136,7 @@ export default function App() {
         />
       </Helmet>
       <div className="page">
-        <CurrentUserContext.Provider value={"currentUser"}>
+        <CurrentUserContext.Provider value={userData}>
           <Routes>
             <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
             <Route
@@ -149,7 +153,7 @@ export default function App() {
               element={
                 <Login
                   handleLogin={handleLogin}
-                  requestRegisterError={requestLoginError}
+                  requestLoginError={requestLoginError}
                 />
               }
             />

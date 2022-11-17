@@ -20,7 +20,7 @@ export function register(name, email, password) {
   }).then((res) => checkRes(res));
 }
 
-export function signin({ email, password }) {
+export function signin(email, password) {
   return fetch(`${baseAuthUrl}/signin`, {
     method: "POST",
     credentials: "include",

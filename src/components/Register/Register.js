@@ -11,7 +11,7 @@ export default function Register({ handleRegister, requestRegisterError }) {
 
   function signup(e) {
     e.preventDefault();
-    console.log(values.name, values.email, values.password);
+    // console.log(values.name, values.email, values.password);
     handleRegister(values.name, values.email, values.password);
   }
 
@@ -29,7 +29,7 @@ export default function Register({ handleRegister, requestRegisterError }) {
         underFormLinkText="Войти"
         onSubmit={signup}
         isSubmitDisabled={isDisabled}
-        requestRegisterError={requestRegisterError}
+        requestError={requestRegisterError}
       >
         <Input
           inputText="Имя"
@@ -59,7 +59,7 @@ export default function Register({ handleRegister, requestRegisterError }) {
           name="password"
           type="password"
           minLength="2"
-          maxLength="40"
+          maxLength="30"
           required
           value={values.password}
           onChange={handleChange}
