@@ -14,9 +14,9 @@ export default function Register({ handleRegister }) {
     console.log(values.name, values.email, values.password);
     handleRegister(values.name, values.email, values.password);
 
-    values.name="";
-    values.email="";
-    values.password="";
+    // values.name="";
+    // values.email="";
+    // values.password="";
   }
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Register({ handleRegister }) {
       >
         <Input
           inputText="Имя"
-          name="Имя"
+          name="name"
           type="text"
           minLength="2"
           maxLength="30"
@@ -49,7 +49,7 @@ export default function Register({ handleRegister }) {
 
         <Input
           inputText="Email"
-          name="Email"
+          name="email"
           type="email"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           required
@@ -61,6 +61,7 @@ export default function Register({ handleRegister }) {
 
         <Input
           inputText="Пароль"
+          name="password"
           type="password"
           minLength="2"
           maxLength="40"
