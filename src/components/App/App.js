@@ -25,6 +25,7 @@ export default function App() {
   // Регистрация
   function handleRegister(name, email, password) {
     console.log('Я внутри функции handleRegister');
+    console.log(name, email, password);
     auth
       .register(name, email, password)
       .then((res) => {

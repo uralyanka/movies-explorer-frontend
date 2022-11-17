@@ -1,4 +1,4 @@
-const baseAuthUrl = "https://auth.nomoreparties.co";
+const baseAuthUrl = "http://localhost:3000";
 
 function checkRes(res) {
   if (res.ok) {
@@ -8,10 +8,10 @@ function checkRes(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export function register({ name, email, password }) {
+export function register(name, email, password) {
   return fetch(`${baseAuthUrl}/signup`, {
     method: "POST",
-    // credentials: "include",
+    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
