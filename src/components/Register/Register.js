@@ -35,8 +35,7 @@ export default function Register({ handleRegister, requestRegisterError }) {
           inputText="Имя"
           name="name"
           type="text"
-          minLength="2"
-          maxLength="30"
+          pattern="[a-zA-Z\u0400-\u04ff- ]{2,30}"
           required
           value={values.name}
           onChange={handleChange}

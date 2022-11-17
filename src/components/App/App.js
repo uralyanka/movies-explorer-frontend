@@ -112,7 +112,7 @@ export default function App() {
       .signout()
       .then((res) => {
         setLoggedIn(false);
-        navigate("/signin");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   }
