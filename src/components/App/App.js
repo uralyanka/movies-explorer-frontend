@@ -19,6 +19,11 @@ export default function App() {
   // false - интерфейс неавторизованного пользователя
 
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    _id: "",
+  });
 
   const navigate = useNavigate();
 
@@ -30,6 +35,8 @@ export default function App() {
       .register(name, email, password)
       .then((res) => {
         console.log('Я после запроса к auth в handleRegister');
+        console.log(res.name, res.email);
+        setUserData({ name: res.name, email: res.email });
         navigate("/movies");
         setLoggedIn(true);
       })
@@ -41,10 +48,11 @@ export default function App() {
   }
 
   // Авторизация
-  function handleLogin(userLoginData) {
+  function handleLogin(email, password) {
     console.log('Я внутри функции handleLogin');
+    console.log(email, password);
     auth
-      .signin(userLoginData)
+      .signin(email, password)
       .then((res) => {
         console.log('Я после запроса к auth в handleLogin');
         setLoggedIn(true);
@@ -115,7 +123,7 @@ export default function App() {
           <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           <Route
             path="/profile"
-            element={<Profile isLoggedIn={isLoggedIn} handleLogOut={handleLogOut} />}
+            element={<Profile isLoggedIn={isLoggedIn} handleLogOut={handleLogOut} userData={userData} />}
           />
           <Route path="/movies" element={<Movies isLoggedIn={isLoggedIn} />} />
           <Route

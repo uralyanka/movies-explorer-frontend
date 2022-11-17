@@ -13,10 +13,6 @@ export default function Register({ handleRegister }) {
     e.preventDefault();
     console.log(values.name, values.email, values.password);
     handleRegister(values.name, values.email, values.password);
-
-    // values.name="";
-    // values.email="";
-    // values.password="";
   }
 
   useEffect(() => {
