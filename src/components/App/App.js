@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
@@ -25,68 +25,87 @@ export default function App() {
     _id: "",
   });
 
+  const [requestRegisterError, setRequestRegisterError] = useState(false);
+  const [requestLoginError, setRequestLoginError] = useState(false);
+
   const navigate = useNavigate();
 
   // Регистрация
   function handleRegister(name, email, password) {
-    console.log('Я внутри функции handleRegister');
+    console.log("Я внутри функции handleRegister");
     console.log(name, email, password);
     auth
       .register(name, email, password)
       .then((res) => {
-        console.log('Я после запроса к auth в handleRegister');
+        console.log("Я после запроса к auth в handleRegister");
         console.log(res.name, res.email);
         setUserData({ name: res.name, email: res.email });
-        navigate("/movies");
         setLoggedIn(true);
+        navigate("/movies");
       })
       .catch((err) => {
-        if (err === "Ошибка: 400")
-          return console.log("некорректно заполнено одно из полей");
+        if (err === "Ошибка: 409") {
+          setRequestRegisterError({
+            classNameErr: "error-active",
+            textErr: "Пользователь с таким email уже существует.",
+          });
+        } else {
+          setRequestRegisterError({
+            classNameErr: "error-active",
+            textErr: "При регистрации пользователя произошла ошибка.",
+          });
+        }
         console.log(err);
       });
   }
 
   // Авторизация
   function handleLogin(email, password) {
-    console.log('Я внутри функции handleLogin');
+    console.log("Я внутри функции handleLogin");
     console.log(email, password);
     auth
       .signin(email, password)
       .then((res) => {
-        console.log('Я после запроса к auth в handleLogin');
+        console.log("Я после запроса к auth в handleLogin");
+        setLoggedIn(true);
+        navigate("/movies");
+      })
+      .catch((err) => {
+        if (err === "Ошибка: 401") {
+          setRequestLoginError({
+            classNameErr: "error-active",
+            textErr: "Вы вели неправильный логин или пароль.",
+          });
+        } else {
+          setRequestLoginError({
+            classNameErr: "error-active",
+            textErr: "Неизвестная ошибка. Попробуйте еще!",
+          });
+        }
+        console.log(err);
+      });
+  }
+
+  // Аутентификация при повторном входе
+  function handleCheckToken() {
+    auth
+      .getContent()
+      .then((res) => {
         setLoggedIn(true);
         navigate("/movies");
       })
       .catch((err) => {
         if (err === "Ошибка: 400")
-          return console.log("не передано одно из полей");
+          return console.log("Токен не передан или передан не в том формате");
         if (err === "Ошибка: 401")
-          return console.log("пользователь с email не найден");
+          return console.log("Переданный токен некорректен");
         console.log(err);
       });
   }
 
-  // // Аутентификация при повторном входе
-  // function handleCheckToken() {
-  //   auth
-  //     .getContent()
-  //     .then((res) => {
-  //       setLoggedIn(true);
-  //       navigate("/movies");
-  //     })
-  //     .catch((err) => {
-  //       if (err === "Ошибка: 400")
-  //         return console.log("Токен не передан или передан не в том формате");
-  //       if (err === "Ошибка: 401")
-  //         return console.log("Переданный токен некорректен");
-  //       console.log(err);
-  //     });
-  // }
-
-  // useEffect(() => {
-  //   handleCheckToken();
-  // }, []);
+  useEffect(() => {
+    handleCheckToken();
+  }, []);
 
   function handleLogOut() {
     auth
@@ -113,25 +132,47 @@ export default function App() {
         />
       </Helmet>
       <div className="page">
-      <CurrentUserContext.Provider value={'currentUser'}>
-        <Routes>
-          <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
-          <Route
-            path="/signup"
-            element={<Register handleRegister={handleRegister} />}
-          />
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-          <Route
-            path="/profile"
-            element={<Profile isLoggedIn={isLoggedIn} handleLogOut={handleLogOut} userData={userData} />}
-          />
-          <Route path="/movies" element={<Movies isLoggedIn={isLoggedIn} />} />
-          <Route
-            path="/saved-movies"
-            element={<SavedMovies isLoggedIn={isLoggedIn} />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <CurrentUserContext.Provider value={"currentUser"}>
+          <Routes>
+            <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
+            <Route
+              path="/signup"
+              element={
+                <Register
+                  handleRegister={handleRegister}
+                  requestRegisterError={requestRegisterError}
+                />
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  handleLogin={handleLogin}
+                  requestRegisterError={requestLoginError}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  isLoggedIn={isLoggedIn}
+                  handleLogOut={handleLogOut}
+                  userData={userData}
+                />
+              }
+            />
+            <Route
+              path="/movies"
+              element={<Movies isLoggedIn={isLoggedIn} />}
+            />
+            <Route
+              path="/saved-movies"
+              element={<SavedMovies isLoggedIn={isLoggedIn} />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </CurrentUserContext.Provider>
       </div>
     </div>

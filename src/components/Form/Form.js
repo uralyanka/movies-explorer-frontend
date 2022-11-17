@@ -12,8 +12,13 @@ export default function Form({
   underFormLinkText,
   onSubmit,
   isSubmitDisabled,
+  requestRegisterError,
 }) {
 
+  const textRequestError = requestRegisterError.textErr;
+  const classNameRequestError = requestRegisterError.classNameErr;
+
+  const requestErrorClassName = `form__request-error form__request-error_${classNameRequestError}`;
   const submitButtonClassName = `button form__submit-btn ${isSubmitDisabled && "form__submit-btn_inactive"}`;
 
   return (
@@ -24,6 +29,9 @@ export default function Form({
 
       <h1 className="form__title">{title}</h1>
       <div className="form__input-container">{children}</div>
+
+      <div className="form__submit-container">
+      <span className={requestErrorClassName}>{textRequestError}</span>
       <button
         type="submit"
         aria-label="Отправить данные"
@@ -32,6 +40,7 @@ export default function Form({
       >
         {buttonText}
       </button>
+      </div>
 
       <div className="form__under-form">
         <p className="form__text-under-form">

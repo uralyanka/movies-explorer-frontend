@@ -4,7 +4,7 @@ import "./Register.css";
 import Input from "../Input/Input";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-export default function Register({ handleRegister }) {
+export default function Register({ handleRegister, requestRegisterError }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
   const isDisabled = !isValid;
@@ -29,7 +29,7 @@ export default function Register({ handleRegister }) {
         underFormLinkText="Войти"
         onSubmit={signup}
         isSubmitDisabled={isDisabled}
-        textError="Что-то пошло не так"
+        requestRegisterError={requestRegisterError}
       >
         <Input
           inputText="Имя"

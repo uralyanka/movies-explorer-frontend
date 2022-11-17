@@ -3,7 +3,7 @@ import Form from "../Form/Form";
 import "./Login.css";
 import Input from "../Input/Input";
 
-export default function Login({ handleLogin }) {
+export default function Login({ handleLogin, requestLoginError }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -32,6 +32,7 @@ export default function Login({ handleLogin }) {
         underFormLinkPath="/signup"
         underFormLinkText="Регистрация"
         onSubmit={handleSignin}
+        requestRegisterError={requestLoginError}
       >
         <Input
           inputText="Email"
