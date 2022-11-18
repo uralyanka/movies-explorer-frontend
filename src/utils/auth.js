@@ -32,7 +32,7 @@ export function signin(email, password) {
   }).then((res) => checkRes(res));
 }
 
-export function getContent() {
+export function getCurrentUser() {
   return fetch(`${baseAuthUrl}/users/me`, {
     method: "GET",
     headers: {

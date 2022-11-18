@@ -15,7 +15,7 @@ import "./App.css";
 
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ name: "", email: "" });
+  const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
 
   const [requestRegisterError, setRequestRegisterError] = useState(false);
   const [requestLoginError, setRequestLoginError] = useState(false);
@@ -31,7 +31,7 @@ export default function App() {
       .then((res) => {
         // console.log("Я после запроса к auth в handleRegister");
         // console.log(res.name, res.email);
-        setUserData({ name: res.name, email: res.email });
+        setCurrentUser({ name: res.name, email: res.email });
         setLoggedIn(true);
         navigate("/movies");
       })
@@ -61,7 +61,7 @@ export default function App() {
         // console.log("Я после запроса к auth в handleLogin");
         setLoggedIn(true);
         // console.log(res);
-        setUserData({ name: res.name, email: res.email });
+        setCurrentUser({ name: res.name, email: res.email });
         navigate("/movies");
       })
       .catch((err) => {
@@ -82,10 +82,12 @@ export default function App() {
 
   // Аутентификация при повторном входе
   function handleCheckToken() {
+    console.log("Я внутри функции handleCheckToken");
     auth
-      .getContent()
+      .getCurrentUser()
       .then((res) => {
         setLoggedIn(true);
+        setCurrentUser({ name: res.name, email: res.email });
         navigate("/movies");
       })
       .catch((err) => {
@@ -115,7 +117,7 @@ export default function App() {
       .signout()
       .then((res) => {
         setLoggedIn(false);
-        setUserData({});
+        setCurrentUser({});
         navigate("/");
       })
       .catch((err) => console.log(err));
@@ -136,7 +138,7 @@ export default function App() {
         />
       </Helmet>
       <div className="page">
-        <CurrentUserContext.Provider value={userData}>
+        <CurrentUserContext.Provider value={currentUser}>
           <Routes>
             <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
             <Route
@@ -163,7 +165,7 @@ export default function App() {
                 <Profile
                   isLoggedIn={isLoggedIn}
                   handleLogOut={handleLogOut}
-                  userData={userData}
+                  currentUser={currentUser}
                 />
               }
             />

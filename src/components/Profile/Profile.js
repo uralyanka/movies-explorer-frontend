@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
 
-export default function Profile({ isLoggedIn, handleLogOut, userData }) {
+export default function Profile({ isLoggedIn, handleLogOut, currentUser }) {
   const [email, setEmail] = useState();
   const [name, setName] = useState();
 
   useEffect(() => {
-    setEmail(userData.email);
-  },[userData]);
+    setEmail(currentUser.email);
+  },[currentUser]);
 
   useEffect(() => {
-    setName(userData.name);
-  },[userData]);
+    setName(currentUser.name);
+  },[currentUser]);
 
   return (
     <>
