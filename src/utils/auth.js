@@ -35,21 +35,21 @@ export function signin(email, password) {
 export function getCurrentUser() {
   return fetch(`${baseAuthUrl}/users/me`, {
     method: "GET",
+    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    credentials: "include",
   }).then((res) => checkRes(res));
 }
 
 export function signout() {
   return fetch(`${baseAuthUrl}/signout`, {
     method: "GET",
+    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    credentials: "include",
   }).then((res) => checkRes(res));
 }

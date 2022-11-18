@@ -10,6 +10,7 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
+import mainApi from "../../utils/MainApi";
 // import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
 
@@ -19,8 +20,37 @@ export default function App() {
 
   const [requestRegisterError, setRequestRegisterError] = useState(false);
   const [requestLoginError, setRequestLoginError] = useState(false);
+  const [requestUpdateUser, setRequestUpdateUser] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    mainApi
+      .getUserData()
+      .then((userData) => {
+        setCurrentUser(userData);
+        console.log(userData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  function handleUpdateUser(profile) {
+    const { name, email } = profile;
+    mainApi
+      .setUserData(name, email)
+      .then((res) => {
+        setCurrentUser(res);
+        setRequestUpdateUser({
+          classNameRequest: "active",
+          textErr: "Профиль успешно обновлен!",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   // Регистрация
   function handleRegister(name, email, password) {
@@ -29,11 +59,14 @@ export default function App() {
     auth
       .register(name, email, password)
       .then((res) => {
+        if (res) {
+          handleLogin(email, password)
+        }
         // console.log("Я после запроса к auth в handleRegister");
         // console.log(res.name, res.email);
-        setCurrentUser({ name: res.name, email: res.email });
-        setLoggedIn(true);
-        navigate("/movies");
+        // setCurrentUser({ name: res.name, email: res.email });
+        // setLoggedIn(true);
+        // navigate("/movies");
       })
       .catch((err) => {
         if (err === "Ошибка: 409") {
@@ -58,11 +91,22 @@ export default function App() {
     auth
       .signin(email, password)
       .then((res) => {
-        // console.log("Я после запроса к auth в handleLogin");
-        setLoggedIn(true);
-        // console.log(res);
-        setCurrentUser({ name: res.name, email: res.email });
-        navigate("/movies");
+        if (res) {
+          mainApi
+            .getUserData()
+            .then((userData) => {
+              setCurrentUser(userData);
+              console.log(userData);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          // console.log("Я после запроса к auth в handleLogin");
+          setLoggedIn(true);
+          // console.log(res);
+          // setCurrentUser({ name: res.name, email: res.email });
+          navigate("/movies");
+        }
       })
       .catch((err) => {
         if (err === "Ошибка: 401") {
@@ -82,28 +126,28 @@ export default function App() {
 
   // Аутентификация при повторном входе
   function handleCheckToken() {
-    console.log("Я внутри функции handleCheckToken");
+    // console.log("Я внутри функции handleCheckToken");
     auth
       .getCurrentUser()
       .then((res) => {
         setLoggedIn(true);
-        setCurrentUser({ name: res.name, email: res.email });
+        // setCurrentUser({ name: res.name, email: res.email });
         navigate("/movies");
       })
       .catch((err) => {
-        // if (err === "Ошибка: 401") {
-        //   setRequestLoginError({
-        //     classNameErr: "error-active",
-        //     textErr:
-        //       "При авторизации произошла ошибка. Переданный токен некорректен.",
-        //   });
-        // } else {
-        //   setRequestLoginError({
-        //     classNameErr: "error-active",
-        //     textErr:
-        //       "При авторизации произошла ошибка. Токен не передан или передан не в том формате.",
-        //   });
-        // }
+        if (err === "Ошибка: 401") {
+          setRequestLoginError({
+            classNameErr: "error-active",
+            textErr:
+              "При авторизации произошла ошибка. Переданный токен некорректен.",
+          });
+        } else {
+          setRequestLoginError({
+            classNameErr: "error-active",
+            textErr:
+              "При авторизации произошла ошибка. Токен не передан или передан не в том формате.",
+          });
+        }
         console.log(err);
       });
   }
@@ -117,7 +161,7 @@ export default function App() {
       .signout()
       .then((res) => {
         setLoggedIn(false);
-        setCurrentUser({});
+        // setCurrentUser({});
         navigate("/");
       })
       .catch((err) => console.log(err));
@@ -166,6 +210,8 @@ export default function App() {
                   isLoggedIn={isLoggedIn}
                   handleLogOut={handleLogOut}
                   currentUser={currentUser}
+                  handleUpdateUser={handleUpdateUser}
+                  requestUpdateUser={requestUpdateUser}
                 />
               }
             />
