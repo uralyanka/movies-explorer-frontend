@@ -8,37 +8,33 @@ export default function Profile({
   handleLogOut,
   currentUser,
   handleUpdateUser,
+  requestUpdateResponse,
 }) {
   const { values, handleChange, isValid, resetForm } = useFormWithValidation();
-  // console.log(values);
-  
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [textResponse, setTextResponse] = useState("");
+
   const isSubmitDisabled =
     isValid &&
     (values.name !== currentUser.name || values.email !== currentUser.email);
-
-  const [isEdit, setIsEditing] = useState(false);
-  const [textRequest, setTextRequest] = useState("");
 
   const submitButtonClassName = `button profile__submit-btn ${
     !isSubmitDisabled && "profile__submit-btn_inactive"
   }`;
 
   function handleEditProfile() {
-    // console.log("Я внутри функции handleEditProfile");
     resetForm(currentUser, {}, false);
-    // console.log("Я после resetForm");
-    setIsEditing(true);
-    setTextRequest("лалала");
-    console.log("Я в конце функции handleEditProfile");
-    console.log(values.name);
+    setIsEdit(true);
+    setTextResponse("");
   }
 
   function submitEditProfile(e) {
-    console.log("Я внутри функции submitEditProfile");
     e.preventDefault();
-    setIsEditing(false);
+    setIsEdit(false);
     handleUpdateUser(values.name, values.email);
-    setTextRequest("олололо");
+    setTextResponse("Успешно!");
+    console.log(requestUpdateResponse.textRes);
   }
 
   useEffect(() => {
@@ -54,38 +50,41 @@ export default function Profile({
         <form className="profile__form" onSubmit={submitEditProfile}>
           <h1 className="profile__title">Привет, {currentUser.name}!</h1>
           <div className="profile__info">
-            <div className="profile__input-container">
+            <label className="profile__input-container">
               <span className="profile__input-text">Имя</span>
               <input
-                name="profile-name"
-                type="text"
-                pattern="[a-zA-Z\u0400-\u04ff- ]{2,30}"
-                placeholder={currentUser.name}
-                required
-                className="profile__input"
                 value={values.name || currentUser.name}
                 onChange={handleChange}
+                id="name-input"
+                type="text"
+                name="name"
+                placeholder=""
+                className="profile__input"
+                minLength="2"
+                maxLength="30"
+                required
                 disabled={!isEdit}
               />
-            </div>
-            <div className="profile__input-container">
+            </label>
+            <label className="profile__input-container">
               <span className="profile__input-text">Email</span>
               <input
-                name="profile-email"
-                type="email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                placeholder=" "
-                required
-                className="profile__input"
                 value={values.email || currentUser.email}
                 onChange={handleChange}
+                id="email-input"
+                type="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                name="email"
+                placeholder=""
+                className="profile__input"
+                required
                 disabled={!isEdit}
               />
-            </div>
+            </label>
           </div>
 
           <div className="profile__buttons">
-            <span className="profile__request-text">{textRequest}</span>
+            <span className="profile__response-text">{textResponse}</span>
             {isEdit ? (
               <button
                 type="submit"

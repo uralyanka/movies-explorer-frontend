@@ -20,7 +20,7 @@ export default function App() {
 
   const [requestRegisterError, setRequestRegisterError] = useState(false);
   const [requestLoginError, setRequestLoginError] = useState(false);
-  const [requestUpdateUser, setRequestUpdateUser] = useState(false);
+  const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
 
   const navigate = useNavigate();
 
@@ -29,25 +29,35 @@ export default function App() {
       .getUserData()
       .then((userData) => {
         setCurrentUser(userData);
-        console.log(userData);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  function handleUpdateUser(profile) {
-    const { name, email } = profile;
+  // Обновление профиля
+  function handleUpdateUser(name, email) {
     mainApi
       .setUserData(name, email)
-      .then((res) => {
-        setCurrentUser(res);
-        setRequestUpdateUser({
-          classNameRequest: "active",
-          textErr: "Профиль успешно обновлен!",
+      .then((userData) => {
+        setCurrentUser(userData);
+        setRequestUpdateResponse({
+          classNameRes: "res-active",
+          textRes: "Профиль успешно обновлен!",
         });
       })
       .catch((err) => {
+        if (err === "Ошибка: 409") {
+          setRequestUpdateResponse({
+            classNameRes: "res-active",
+            textRes: "Профиль с таким email уже существует",
+          });
+        } else {
+          setRequestUpdateResponse({
+            classNameRes: "res-active",
+            textRes: "При обновлении профиля произошла ошибка",
+          });
+        }
         console.log(err);
       });
   }
@@ -60,7 +70,7 @@ export default function App() {
       .register(name, email, password)
       .then((res) => {
         if (res) {
-          handleLogin(email, password)
+          handleLogin(email, password);
         }
         // console.log("Я после запроса к auth в handleRegister");
         // console.log(res.name, res.email);
@@ -132,7 +142,7 @@ export default function App() {
       .then((res) => {
         setLoggedIn(true);
         // setCurrentUser({ name: res.name, email: res.email });
-        navigate("/movies");
+        // navigate("/movies");
       })
       .catch((err) => {
         if (err === "Ошибка: 401") {
@@ -211,7 +221,7 @@ export default function App() {
                   handleLogOut={handleLogOut}
                   currentUser={currentUser}
                   handleUpdateUser={handleUpdateUser}
-                  requestUpdateUser={requestUpdateUser}
+                  requestUpdateResponse={requestUpdateResponse}
                 />
               }
             />

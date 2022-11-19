@@ -11,7 +11,6 @@ export default function Login({ handleLogin, requestLoginError }) {
 
   function signin(e) {
     e.preventDefault();
-    // console.log(values.email, values.password);
     handleLogin(values.email, values.password);
   }
 

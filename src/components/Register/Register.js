@@ -11,7 +11,6 @@ export default function Register({ handleRegister, requestRegisterError }) {
 
   function signup(e) {
     e.preventDefault();
-    // console.log(values.name, values.email, values.password);
     handleRegister(values.name, values.email, values.password);
   }
 
