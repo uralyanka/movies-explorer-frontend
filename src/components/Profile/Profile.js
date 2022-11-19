@@ -33,15 +33,19 @@ export default function Profile({
     e.preventDefault();
     setIsEdit(false);
     handleUpdateUser(values.name, values.email);
-    setTextResponse("Успешно!");
-    console.log(requestUpdateResponse.textRes);
   }
 
   useEffect(() => {
-    if (currentUser) {
-      resetForm(currentUser, {}, false);
-    }
-  }, [currentUser, resetForm]);
+    resetForm({}, {}, false);
+  }, [resetForm]);
+
+  useEffect(() => {
+    setTextResponse(requestUpdateResponse);
+  }, [requestUpdateResponse]);
+
+  useEffect(() => {
+    setTextResponse("");
+  }, []);
 
   return (
     <>
@@ -57,11 +61,10 @@ export default function Profile({
                 onChange={handleChange}
                 id="name-input"
                 type="text"
+                pattern="[a-zA-Z\u0400-\u04ff- ]{2,30}"
                 name="name"
                 placeholder=""
                 className="profile__input"
-                minLength="2"
-                maxLength="30"
                 required
                 disabled={!isEdit}
               />

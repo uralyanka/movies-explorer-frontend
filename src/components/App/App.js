@@ -18,8 +18,8 @@ export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
 
-  const [requestRegisterError, setRequestRegisterError] = useState(false);
-  const [requestLoginError, setRequestLoginError] = useState(false);
+  const [requestRegisterError, setRequestRegisterError] = useState({});
+  const [requestLoginError, setRequestLoginError] = useState({});
   const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
 
   const navigate = useNavigate();
@@ -41,22 +41,13 @@ export default function App() {
       .setUserData(name, email)
       .then((userData) => {
         setCurrentUser(userData);
-        setRequestUpdateResponse({
-          classNameRes: "res-active",
-          textRes: "Профиль успешно обновлен!",
-        });
+        setRequestUpdateResponse("Профиль успешно обновлен!");
       })
       .catch((err) => {
         if (err === "Ошибка: 409") {
-          setRequestUpdateResponse({
-            classNameRes: "res-active",
-            textRes: "Профиль с таким email уже существует",
-          });
+          setRequestUpdateResponse("Профиль с таким email уже существует.");
         } else {
-          setRequestUpdateResponse({
-            classNameRes: "res-active",
-            textRes: "При обновлении профиля произошла ошибка",
-          });
+          setRequestUpdateResponse("При обновлении профиля произошла ошибка, обновите страницу.");
         }
         console.log(err);
       });
@@ -64,19 +55,10 @@ export default function App() {
 
   // Регистрация
   function handleRegister(name, email, password) {
-    // console.log("Я внутри функции handleRegister");
-    // console.log(name, email, password);
     auth
       .register(name, email, password)
-      .then((res) => {
-        if (res) {
-          handleLogin(email, password);
-        }
-        // console.log("Я после запроса к auth в handleRegister");
-        // console.log(res.name, res.email);
-        // setCurrentUser({ name: res.name, email: res.email });
-        // setLoggedIn(true);
-        // navigate("/movies");
+      .then(() => {
+        handleLogin(email, password);
       })
       .catch((err) => {
         if (err === "Ошибка: 409") {
@@ -96,27 +78,19 @@ export default function App() {
 
   // Авторизация
   function handleLogin(email, password) {
-    // console.log("Я внутри функции handleLogin");
-    // console.log(email, password);
     auth
       .signin(email, password)
-      .then((res) => {
-        if (res) {
+      .then(() => {
           mainApi
             .getUserData()
             .then((userData) => {
               setCurrentUser(userData);
-              console.log(userData);
             })
             .catch((err) => {
               console.log(err);
             });
-          // console.log("Я после запроса к auth в handleLogin");
           setLoggedIn(true);
-          // console.log(res);
-          // setCurrentUser({ name: res.name, email: res.email });
           navigate("/movies");
-        }
       })
       .catch((err) => {
         if (err === "Ошибка: 401") {
@@ -136,13 +110,10 @@ export default function App() {
 
   // Аутентификация при повторном входе
   function handleCheckToken() {
-    // console.log("Я внутри функции handleCheckToken");
     auth
       .getCurrentUser()
-      .then((res) => {
+      .then(() => {
         setLoggedIn(true);
-        // setCurrentUser({ name: res.name, email: res.email });
-        // navigate("/movies");
       })
       .catch((err) => {
         if (err === "Ошибка: 401") {
@@ -169,9 +140,9 @@ export default function App() {
   function handleLogOut() {
     auth
       .signout()
-      .then((res) => {
+      .then(() => {
         setLoggedIn(false);
-        // setCurrentUser({});
+        setCurrentUser({});
         navigate("/");
       })
       .catch((err) => console.log(err));

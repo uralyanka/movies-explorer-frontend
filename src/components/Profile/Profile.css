@@ -51,6 +51,13 @@
   outline: none;
 }
 
+.profile__response-text {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+}
+
 .profile__buttons {
   display: flex;
   flex-direction: column;
@@ -67,18 +74,18 @@
   color: #ffffff;
   font-weight: 500;
   font-size: 14px;
-  line-height: calc(17/14);
+  line-height: calc(17 / 14);
   text-align: center;
 }
 
 .profile__submit-btn_inactive {
   width: 100%;
   height: 45px;
-  background-color: #F8F8F8 !important;
-  color: #C2C2C2;
+  background-color: #f8f8f8 !important;
+  color: #c2c2c2;
   font-weight: 500;
   font-size: 14px;
-  line-height: calc(17/14);
+  line-height: calc(17 / 14);
   text-align: center;
 }
 
