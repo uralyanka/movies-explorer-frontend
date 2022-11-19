@@ -11,7 +11,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
-// import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 
 export default function App() {
@@ -47,7 +47,9 @@ export default function App() {
         if (err === "Ошибка: 409") {
           setRequestUpdateResponse("Профиль с таким email уже существует.");
         } else {
-          setRequestUpdateResponse("При обновлении профиля произошла ошибка, обновите страницу.");
+          setRequestUpdateResponse(
+            "При обновлении профиля произошла ошибка, обновите страницу."
+          );
         }
         console.log(err);
       });
@@ -81,16 +83,16 @@ export default function App() {
     auth
       .signin(email, password)
       .then(() => {
-          mainApi
-            .getUserData()
-            .then((userData) => {
-              setCurrentUser(userData);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          setLoggedIn(true);
-          navigate("/movies");
+        mainApi
+          .getUserData()
+          .then((userData) => {
+            setCurrentUser(userData);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        setLoggedIn(true);
+        navigate("/movies");
       })
       .catch((err) => {
         if (err === "Ошибка: 401") {
@@ -116,19 +118,14 @@ export default function App() {
         setLoggedIn(true);
       })
       .catch((err) => {
-        if (err === "Ошибка: 401") {
-          setRequestLoginError({
-            classNameErr: "error-active",
-            textErr:
-              "При авторизации произошла ошибка. Переданный токен некорректен.",
-          });
-        } else {
-          setRequestLoginError({
-            classNameErr: "error-active",
-            textErr:
-              "При авторизации произошла ошибка. Токен не передан или передан не в том формате.",
-          });
-        }
+        if (err === "Ошибка: 400")
+          return console.log(
+            "При авторизации произошла ошибка. Токен не передан или передан не в том формате."
+          );
+        if (err === "Ошибка: 401")
+          return console.log(
+            "При авторизации произошла ошибка. Переданный токен некорректен."
+          );
         console.log(err);
       });
   }
@@ -187,22 +184,33 @@ export default function App() {
             <Route
               path="/profile"
               element={
-                <Profile
+                <ProtectedRoute
                   isLoggedIn={isLoggedIn}
                   handleLogOut={handleLogOut}
                   currentUser={currentUser}
                   handleUpdateUser={handleUpdateUser}
                   requestUpdateResponse={requestUpdateResponse}
-                />
+                  component={Profile}
+                ></ProtectedRoute>
               }
             />
             <Route
               path="/movies"
-              element={<Movies isLoggedIn={isLoggedIn} />}
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  component={Movies}
+                ></ProtectedRoute>
+              }
             />
             <Route
               path="/saved-movies"
-              element={<SavedMovies isLoggedIn={isLoggedIn} />}
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  component={SavedMovies}
+                ></ProtectedRoute>
+              }
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
