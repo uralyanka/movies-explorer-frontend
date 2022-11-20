@@ -1,3 +1,5 @@
+const moviesApiUrl = "https://api.nomoreparties.co";
+
 class MainApi {
   constructor({ mainApiUrl, headers }) {
     this._mainApiUrl = mainApiUrl;
@@ -29,6 +31,51 @@ class MainApi {
         name,
         email,
       }),
+    }).then((res) => this._checkRes(res));
+  }
+
+  saveMovie(movie) {
+    const {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      trailerLink,
+      nameRU,
+      nameEN,
+      owner
+    } = movie;
+    const movieId = movie.id;
+    const image = `${moviesApiUrl}${movie.image.url}`;
+    const thumbnail = `${moviesApiUrl}${movie.image.formats.thumbnail.url}`;
+
+    return fetch(`${this._mainApiUrl}/movies`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailerLink,
+        nameRU,
+        nameEN,
+        thumbnail,
+        movieId,
+        owner
+      }),
+    }).then((res) => this._checkRes(res));
+  }
+
+  getSavedMovies() {
+    return fetch(`${this._mainApiUrl}/movies`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: this._headers,
     }).then((res) => this._checkRes(res));
   }
 }

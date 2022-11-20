@@ -12,7 +12,7 @@ import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+// import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 
 export default function App() {
@@ -20,13 +20,14 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
 
   const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [requestRegisterError, setRequestRegisterError] = useState({});
   const [requestLoginError, setRequestLoginError] = useState({});
   const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
 
   const navigate = useNavigate();
 
-  //Фильмы с api
+  //Все фильмы с api
   useEffect(() => {
     moviesApi
       .getAllMovies()
@@ -39,6 +40,28 @@ export default function App() {
       });
   }, []);
 
+  //Сохраненные фильмы с api
+  useEffect(() => {
+    mainApi
+      .getSavedMovies()
+      .then((res) => {
+        console.log(res);
+        setSavedMovies((res) =>
+          res.filter((m) => {
+            return m._id === currentUser._id;
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [currentUser]);
+
+  // useEffect(() => {
+  //   console.log(savedMovies);
+  //   setSavedMovies([]);
+  // }, []);
+
   // Загрузка данных пользователя
   useEffect(() => {
     mainApi
@@ -50,6 +73,19 @@ export default function App() {
         console.log(err);
       });
   }, []);
+
+  // Сохранение фильма
+  function handleMovieSave(movie) {
+    mainApi
+      .saveMovie(movie)
+      .then((newSavedMovie) => {
+        // console.log(newSavedMovie);
+        setSavedMovies((movies) => [newSavedMovie, ...movies]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   // Обновление профиля
   function handleUpdateUser(name, email) {
@@ -217,16 +253,18 @@ export default function App() {
                   isLoggedIn={isLoggedIn}
                   component={Movies}
                   movies={movies}
+                  handleMovieSave={handleMovieSave}
                 />
               }
             />
             <Route
               path="/saved-movies"
               element={
-                <ProtectedRoute
+                <SavedMovies
                   isLoggedIn={isLoggedIn}
-                  component={SavedMovies}
-                ></ProtectedRoute>
+                  movies={savedMovies}
+                  // component={SavedMovies}
+                />
               }
             />
             <Route path="*" element={<NotFound />} />

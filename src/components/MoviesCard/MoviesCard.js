@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 
-export default function MoviesCard({ movie }) {
+export default function MoviesCard({ movie, handleMovieSave }) {
   const moviesApiUrl = "https://api.nomoreparties.co";
 
   function minutesToHours(minutes) {
@@ -11,6 +11,17 @@ export default function MoviesCard({ movie }) {
     return result;
   }
 
+  function handleSaveMovieClick() {
+    handleMovieSave(movie);
+    console.log(movie);
+  }
+
+  // function handleDeleteSavedClick() {
+  //   onMovieDelete(movie);
+  // }
+
+  // const isSaved = movie.id.some((m) => m.movieId === movie.id);
+
   return (
     <li className="movies-card">
       <div className="movies-card__header">
@@ -20,7 +31,14 @@ export default function MoviesCard({ movie }) {
             {minutesToHours(movie.duration)}
           </span>
         </div>
-        <button className="button movie-card__save-btn" type="button"></button>
+        <button
+          className="button movie-card__save-btn"
+          // className={`button movie-card__save-btn ${
+          //   isSaved ? "movie-card__save-btn_active" : ""
+          // }`}
+          type="button"
+          onClick={handleSaveMovieClick}
+        ></button>
       </div>
       <a
         className="link movies-card__link"
