@@ -62,11 +62,11 @@ class MainApi {
         description,
         image,
         trailerLink,
+        thumbnail,
+        owner,
+        movieId,
         nameRU,
         nameEN,
-        thumbnail,
-        movieId,
-        owner
       }),
     }).then((res) => this._checkRes(res));
   }

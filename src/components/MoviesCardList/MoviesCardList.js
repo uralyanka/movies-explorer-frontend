@@ -2,7 +2,7 @@ import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-export default function MoviesCardList({ movies, handleMovieSave }) {
+export default function MoviesCardList({ movies, handleMovieSave, savedMovies }) {
   return (
     <div className="movies-card-list">
       <ul className="movies-card-list__grid-container">
@@ -12,6 +12,7 @@ export default function MoviesCardList({ movies, handleMovieSave }) {
               key={movie._id}
               movie={movie}
               handleMovieSave={handleMovieSave}
+              savedMovies={savedMovies}
             />
           );
         })}

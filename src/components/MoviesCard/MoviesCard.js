@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 
-export default function MoviesCard({ movie, handleMovieSave }) {
+export default function MoviesCard({ movie, handleMovieSave, savedMovies }) {
   const moviesApiUrl = "https://api.nomoreparties.co";
 
   function minutesToHours(minutes) {
@@ -20,7 +20,7 @@ export default function MoviesCard({ movie, handleMovieSave }) {
   //   onMovieDelete(movie);
   // }
 
-  // const isSaved = movie.id.some((m) => m.movieId === movie.id);
+  const isSaved = movie.id && savedMovies.some((m) => m.movieId === movie.id);
 
   return (
     <li className="movies-card">
@@ -32,10 +32,9 @@ export default function MoviesCard({ movie, handleMovieSave }) {
           </span>
         </div>
         <button
-          className="button movie-card__save-btn"
-          // className={`button movie-card__save-btn ${
-          //   isSaved ? "movie-card__save-btn_active" : ""
-          // }`}
+          className={`button movie-card__save-btn ${
+            isSaved ? "movie-card__save-btn_active" : ""
+          }`}
           type="button"
           onClick={handleSaveMovieClick}
         ></button>

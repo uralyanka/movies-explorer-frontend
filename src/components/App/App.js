@@ -12,7 +12,7 @@ import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
-// import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 
 export default function App() {
@@ -79,8 +79,8 @@ export default function App() {
     mainApi
       .saveMovie(movie)
       .then((newSavedMovie) => {
-        // console.log(newSavedMovie);
-        setSavedMovies((movies) => [newSavedMovie, ...movies]);
+        console.log(newSavedMovie);
+        setSavedMovies([newSavedMovie, ...savedMovies]);
       })
       .catch((error) => {
         console.log(error);
@@ -139,6 +139,7 @@ export default function App() {
           .getUserData()
           .then((userData) => {
             setCurrentUser(userData);
+            // console.log(userData);
           })
           .catch((err) => {
             console.log(err);
@@ -166,8 +167,9 @@ export default function App() {
   function handleCheckToken() {
     auth
       .getCurrentUser()
-      .then(() => {
+      .then((userData) => {
         setLoggedIn(true);
+        setCurrentUser(userData);
       })
       .catch((err) => {
         if (err === "Ошибка: 400")
@@ -236,25 +238,26 @@ export default function App() {
             <Route
               path="/profile"
               element={
-                <Profile
+                <ProtectedRoute
                   isLoggedIn={isLoggedIn}
+                  component={Profile}
                   handleLogOut={handleLogOut}
                   currentUser={currentUser}
                   handleUpdateUser={handleUpdateUser}
                   requestUpdateResponse={requestUpdateResponse}
-                  component={Profile}
-                />
+                ></ProtectedRoute>
               }
             />
             <Route
               path="/movies"
               element={
-                <Movies
+                <ProtectedRoute
                   isLoggedIn={isLoggedIn}
                   component={Movies}
                   movies={movies}
                   handleMovieSave={handleMovieSave}
-                />
+                  savedMovies={savedMovies}
+                ></ProtectedRoute>
               }
             />
             <Route

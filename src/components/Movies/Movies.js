@@ -6,13 +6,13 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 
-export default function Movies({ isLoggedIn, movies, handleMovieSave }) {
+export default function Movies({ isLoggedIn, movies, handleMovieSave, savedMovies }) {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
         <SearchForm />
-        <MoviesCardList movies={movies} handleMovieSave={handleMovieSave} />
+        <MoviesCardList movies={movies} handleMovieSave={handleMovieSave} savedMovies={savedMovies} />
         <Preloader />
       </main>
       <Footer />
