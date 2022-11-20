@@ -11,6 +11,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 
@@ -18,12 +19,27 @@ export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
 
+  const [movies, setMovies] = useState([]);
   const [requestRegisterError, setRequestRegisterError] = useState({});
   const [requestLoginError, setRequestLoginError] = useState({});
   const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
 
   const navigate = useNavigate();
 
+  //Фильмы с api
+  useEffect(() => {
+    moviesApi
+      .getAllMovies()
+      .then((res) => {
+        setMovies(res);
+        // console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // Загрузка данных пользователя
   useEffect(() => {
     mainApi
       .getUserData()
@@ -184,23 +200,24 @@ export default function App() {
             <Route
               path="/profile"
               element={
-                <ProtectedRoute
+                <Profile
                   isLoggedIn={isLoggedIn}
                   handleLogOut={handleLogOut}
                   currentUser={currentUser}
                   handleUpdateUser={handleUpdateUser}
                   requestUpdateResponse={requestUpdateResponse}
                   component={Profile}
-                ></ProtectedRoute>
+                />
               }
             />
             <Route
               path="/movies"
               element={
-                <ProtectedRoute
+                <Movies
                   isLoggedIn={isLoggedIn}
                   component={Movies}
-                ></ProtectedRoute>
+                  movies={movies}
+                />
               }
             />
             <Route
