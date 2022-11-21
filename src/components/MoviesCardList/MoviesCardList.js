@@ -2,16 +2,17 @@ import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-export default function MoviesCardList({ movies, handleMovieSave, savedMovies }) {
+export default function MoviesCardList({ movies, handleMovieSave, handleMovieDelete, savedMovies }) {
   return (
     <div className="movies-card-list">
       <ul className="movies-card-list__grid-container">
-        {movies?.map((movie) => {
+        {movies?.map((movie, id) => {
           return (
             <MoviesCard
-              key={movie._id}
+              key={movie.id || movie._id}
               movie={movie}
               handleMovieSave={handleMovieSave}
+              handleMovieDelete={handleMovieDelete}
               savedMovies={savedMovies}
             />
           );

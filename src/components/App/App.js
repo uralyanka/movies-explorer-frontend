@@ -87,6 +87,20 @@ export default function App() {
       });
   }
 
+  // Удаление фильма
+  function handleMovieDelete(movie) {
+    console.log("Я в handleMovieDelete");
+    console.log(movie);
+    mainApi
+      .deleteMovie(movie._id)
+      .then(() => {
+        setSavedMovies((movies) => movies.filter((m) => m._id !== movie._id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   // Обновление профиля
   function handleUpdateUser(name, email) {
     mainApi
@@ -256,6 +270,7 @@ export default function App() {
                   component={Movies}
                   movies={movies}
                   handleMovieSave={handleMovieSave}
+                  handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
                 ></ProtectedRoute>
               }
@@ -266,7 +281,7 @@ export default function App() {
                 <SavedMovies
                   isLoggedIn={isLoggedIn}
                   movies={savedMovies}
-                  // component={SavedMovies}
+                  handleMovieDelete={handleMovieDelete}
                 />
               }
             />

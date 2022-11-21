@@ -52,6 +52,17 @@
   height: 30px;
 }
 
+.movie-card__delete-saved-btn {
+  background-image: url(../../images/closebtn.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #313131 !important;
+  border-radius: 50% !important;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
 .movies-card__cover {
   object-fit: cover;
   width: 100%;

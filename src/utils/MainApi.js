@@ -78,6 +78,14 @@ class MainApi {
       headers: this._headers,
     }).then((res) => this._checkRes(res));
   }
+
+  deleteMovie(id) {
+    return fetch(`${this._mainApiUrl}/movies/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: this._headers,
+    }).then((res) => this._checkRes(res));
+  }
 }
 
 export default new MainApi({

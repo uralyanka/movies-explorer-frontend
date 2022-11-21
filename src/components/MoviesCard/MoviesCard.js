@@ -1,7 +1,17 @@
+import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 
-export default function MoviesCard({ movie, handleMovieSave, savedMovies }) {
-  const moviesApiUrl = "https://api.nomoreparties.co";
+export default function MoviesCard({
+  movie,
+  handleMovieSave,
+  handleMovieDelete,
+  savedMovies,
+}) {
+  const location = useLocation();
+  const savedMovieOk = location.pathname === "/saved-movies";
+  const image = !savedMovieOk
+    ? `https://api.nomoreparties.co${movie.image.url}`
+    : `${movie.image}`;
 
   function minutesToHours(minutes) {
     const hours = Math.trunc(minutes / 60);
@@ -12,13 +22,18 @@ export default function MoviesCard({ movie, handleMovieSave, savedMovies }) {
   }
 
   function handleSaveMovieClick() {
-    handleMovieSave(movie);
     console.log(movie);
+    if (isSaved) {
+      handleMovieDelete(savedMovies.filter((m) => m.movieId === movie.id)[0]);
+    } else if (!isSaved) {
+      handleMovieSave(movie);
+    }
   }
 
-  // function handleDeleteSavedClick() {
-  //   onMovieDelete(movie);
-  // }
+  function handleDeleteSavedClick() {
+    console.log(movie);
+    handleMovieDelete(movie);
+  }
 
   const isSaved = movie.id && savedMovies.some((m) => m.movieId === movie.id);
 
@@ -31,13 +46,22 @@ export default function MoviesCard({ movie, handleMovieSave, savedMovies }) {
             {minutesToHours(movie.duration)}
           </span>
         </div>
-        <button
-          className={`button movie-card__save-btn ${
-            isSaved ? "movie-card__save-btn_active" : ""
-          }`}
-          type="button"
-          onClick={handleSaveMovieClick}
-        ></button>
+        {!savedMovieOk && (
+          <button
+            className={`button movie-card__save-btn ${
+              isSaved ? "movie-card__save-btn_active" : ""
+            }`}
+            type="button"
+            onClick={handleSaveMovieClick}
+          ></button>
+        )}
+        {savedMovieOk && (
+          <button
+            className="button movie-card__delete-saved-btn"
+            type="button"
+            onClick={handleDeleteSavedClick}
+          ></button>
+        )}
       </div>
       <a
         className="link movies-card__link"
@@ -45,11 +69,7 @@ export default function MoviesCard({ movie, handleMovieSave, savedMovies }) {
         target="_blank"
         rel="noreferrer"
       >
-        <img
-          className="movies-card__cover"
-          src={`${moviesApiUrl}${movie.image.url}`}
-          alt="Обложка фильма"
-        />
+        <img className="movies-card__cover" src={image} alt="Обложка фильма" />
       </a>
     </li>
   );
