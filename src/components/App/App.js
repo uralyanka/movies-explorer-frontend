@@ -16,15 +16,19 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 
 export default function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  // const [isMovieSearch, setIsMovieSearch] = useState([]);
+  // const [isMovieSaveSearch, setIsMovieSaveSearch] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+
   const [requestRegisterError, setRequestRegisterError] = useState({});
   const [requestLoginError, setRequestLoginError] = useState({});
   const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
-  // const [isLoading, setIsLoading] = useState(true);
+  
 
   const navigate = useNavigate();
 
@@ -152,8 +156,9 @@ export default function App() {
         mainApi
           .getUserData()
           .then((userData) => {
+            setLoggedIn(true);
             setCurrentUser(userData);
-            // console.log(userData);
+            // console.log(isLoggedIn);
           })
           .catch((err) => {
             console.log(err);
@@ -181,11 +186,12 @@ export default function App() {
   function handleCheckToken() {
     auth
       .getCurrentUser()
-      .then((userData) => {
+      .then(() => {
         setLoggedIn(true);
-        setCurrentUser(userData);
+        // console.log(isLoggedIn);
       })
       .catch((err) => {
+        setLoggedIn(false);
         if (err === "Ошибка: 400")
           return console.log(
             "При авторизации произошла ошибка. Токен не передан или передан не в том формате."
