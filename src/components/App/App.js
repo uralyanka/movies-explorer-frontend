@@ -24,6 +24,7 @@ export default function App() {
   const [requestRegisterError, setRequestRegisterError] = useState({});
   const [requestLoginError, setRequestLoginError] = useState({});
   const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
+  // const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -41,38 +42,25 @@ export default function App() {
   }, []);
 
   //Сохраненные фильмы с api
-  useEffect(() => {
+  function getSavedMovies() {
     mainApi
       .getSavedMovies()
       .then((res) => {
         console.log(res);
         setSavedMovies((res) =>
           res.filter((m) => {
-            return m._id === currentUser._id;
+            return m.owner === currentUser._id;
           })
         );
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [currentUser]);
+  }
 
-  // useEffect(() => {
-  //   console.log(savedMovies);
-  //   setSavedMovies([]);
-  // }, []);
-
-  // Загрузка данных пользователя
   useEffect(() => {
-    mainApi
-      .getUserData()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    getSavedMovies();
+  }, [currentUser]);
 
   // Сохранение фильма
   function handleMovieSave(movie) {
@@ -100,6 +88,18 @@ export default function App() {
         console.log(error);
       });
   }
+
+  // Загрузка данных пользователя
+  useEffect(() => {
+    mainApi
+      .getUserData()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // Обновление профиля
   function handleUpdateUser(name, email) {

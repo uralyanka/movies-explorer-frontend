@@ -1,8 +1,8 @@
 import "./Movies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
+import SearchFormFilter from "../SearchFormFilter/SearchFormFilter";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-// import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 
@@ -18,6 +18,7 @@ export default function Movies({
       <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
         <SearchForm />
+        <SearchFormFilter />
         <MoviesCardList
           movies={movies}
           handleMovieSave={handleMovieSave}
