@@ -13,6 +13,7 @@ export default function Movies({
   handleMovieDelete,
   savedMovies,
 }) {
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
