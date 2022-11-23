@@ -21,15 +21,13 @@ export default function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  // const [isMovieSearch, setIsMovieSearch] = useState([]);
-  // const [isMovieSaveSearch, setIsMovieSaveSearch] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
+  // const [isSearched, setIsSearched] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const [requestRegisterError, setRequestRegisterError] = useState({});
   const [requestLoginError, setRequestLoginError] = useState({});
   const [requestUpdateResponse, setRequestUpdateResponse] = useState({});
   
-
   const navigate = useNavigate();
 
   //Все фильмы с api
@@ -44,6 +42,13 @@ export default function App() {
         console.log(err);
       });
   }, []);
+
+  // function handleSearchSubmit(searchValue) {
+  //   if (!isSearched) {
+  //       // setIsLoading(true);
+  //       new Promise(() => {
+  //         moviesApi
+  // }
 
   //Сохраненные фильмы с api
   function getSavedMovies() {
@@ -278,6 +283,7 @@ export default function App() {
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
+                  // handleSearchSubmit={handleSearchSubmit}
                 ></ProtectedRoute>
               }
             />

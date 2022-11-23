@@ -12,13 +12,14 @@ export default function Movies({
   handleMovieSave,
   handleMovieDelete,
   savedMovies,
+  handleSearchSubmit,
 }) {
 
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
-        <SearchForm />
+        <SearchForm handleSearchSubmit={handleSearchSubmit}/>
         <SearchFormFilter />
         <MoviesCardList
           movies={movies}

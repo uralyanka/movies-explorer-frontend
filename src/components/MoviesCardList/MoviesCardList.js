@@ -6,7 +6,7 @@ export default function MoviesCardList({ movies, handleMovieSave, handleMovieDel
   return (
     <div className="movies-card-list">
       <ul className="movies-card-list__grid-container">
-        {movies?.map((movie, id) => {
+        {movies?.map((movie) => {
           return (
             <MoviesCard
               key={movie.id || movie._id}
@@ -17,7 +17,6 @@ export default function MoviesCardList({ movies, handleMovieSave, handleMovieDel
             />
           );
         })}
-        ;
       </ul>
       <button className="button movies-card-list__btn">Ещё</button>
     </div>
