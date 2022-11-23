@@ -1,10 +1,19 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-export default function MoviesCardList({ movies, handleMovieSave, handleMovieDelete, savedMovies, searchText }) {
+export default function MoviesCardList({
+  movies,
+  handleMovieSave,
+  handleMovieDelete,
+  savedMovies,
+  searchText,
+  handleMoreMovies,
+}) {
   return (
     <div className="movies-card-list">
-      {searchText && <p className="movies-card-list__search-text">{searchText}</p>}
+      {searchText && (
+        <p className="movies-card-list__search-text">{searchText}</p>
+      )}
       <ul className="movies-card-list__grid-container">
         {movies?.map((movie) => {
           return (
@@ -18,7 +27,14 @@ export default function MoviesCardList({ movies, handleMovieSave, handleMovieDel
           );
         })}
       </ul>
-      <button className="button movies-card-list__btn">Ещё</button>
+      <button
+        type="button"
+        aria-label="Показать еще фильмы"
+        className="button movies-card-list__btn"
+        onClick={handleMoreMovies}
+      >
+        Ещё
+      </button>
     </div>
   );
 }

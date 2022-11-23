@@ -25,84 +25,20 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  const [allMovies, setAllMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchedMovies, setSearchedMovies] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const localStorageData = JSON.parse(localStorage.getItem('localStorageData'));
-  const [searchDataText, setSearchDataText] = useState('');
-  const [moviesList, setMoviesList] = useState([]);
-
   const [savedMovies, setSavedMovies] = useState([]);
 
-  //Все фильмы с api
-  // useEffect(() => {
-  //   moviesApi
-  //     .getAllMovies()
-  //     .then((res) => {
-  //       setMovies(res);
-  //       // console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  
-  useEffect(() => {
-    if (localStorageData) {
-      setSearchDataText(localStorageData.search);
-      setMoviesList(localStorageData.movies);
-      console.log(localStorageData);
-      if (localStorageData.movies.length === 0) {
-        setSearchText('Ничего не найдено');
-      }
-    }
-  }, []);
-
-  // Поиск фильмов с api
-  function handleSearchSubmit(values) {
-    setSearchText("");
-    if (allMovies.length === 0) {
-      setIsLoading(true);
-      moviesApi
-        .getAllMovies()
-        .then((movies) => {
-          setAllMovies(movies);
-          searchMovies(movies, values);
-        })
-        .catch((err) => {
-          console.log(err);
-          setSearchText(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
-          );
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      searchMovies(allMovies, values);
-    }
-  }
-
-  function getSearchMovieList(movieList, values) {
-    return movieList.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(values.toLowerCase());
-    });
-  }
-
-  function searchMovies(movies, values) {
-    const searchedMovies = getSearchMovieList(movies, values);
-    const localStorageData = {
-      search: values,
-      movies: searchedMovies,
-    }
-    localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
-    console.log(localStorageData)
-    setSearchedMovies(searchedMovies);
-    if (searchedMovies.length === 0) {
-      setSearchText("Ничего не найдено");
-    }
-  }
+  // //Все фильмы с api
+  // // useEffect(() => {
+  // //   moviesApi
+  // //     .getAllMovies()
+  // //     .then((res) => {
+  // //       setMovies(res);
+  // //       // console.log(res);
+  // //     })
+  // //     .catch((err) => {
+  // //       console.log(err);
+  // //     });
+  // // }, []);
 
   //Сохраненные фильмы с api
   function getSavedMovies() {
@@ -115,7 +51,7 @@ export default function App() {
             return m.owner === currentUser._id;
           })
         );
-        localStorage.setItem('savedMovies', JSON.stringify(res));
+        localStorage.setItem("savedMovies", JSON.stringify(res));
         // console.log(localStorage.savedMovies)
       })
       .catch((error) => {
@@ -334,16 +270,10 @@ export default function App() {
               element={
                 <ProtectedRoute
                   isLoggedIn={isLoggedIn}
-                  isLoading={isLoading}
                   component={Movies}
-                  searchedMovies={searchedMovies}
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
-                  handleSearchSubmit={handleSearchSubmit}
-                  searchText={searchText}
-                  searchDataText={searchDataText}
-                  moviesList={moviesList}
                 ></ProtectedRoute>
               }
             />
