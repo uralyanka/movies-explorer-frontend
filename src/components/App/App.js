@@ -46,8 +46,6 @@ export default function App() {
   // function handleSearchSubmit(searchValue) {
   //   if (!isSearched) {
   //       // setIsLoading(true);
-  //       new Promise(() => {
-  //         moviesApi
   // }
 
   //Сохраненные фильмы с api
