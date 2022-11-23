@@ -9,33 +9,46 @@ import Footer from "../Footer/Footer";
 
 export default function Movies({
   isLoggedIn,
-  movies,
+  isLoading,
+  searchedMovies,
   handleMovieSave,
   handleMovieDelete,
   savedMovies,
   handleSearchSubmit,
+  searchText,
+  searchDataText,
+  moviesList,
 }) {
   const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
 
   function handleChangeShortMovie() {
     setIsSelectedIsShortMovie(!isSelectedShortMovie);
+    localStorage.setItem('isSwitch', JSON.stringify(!isSelectedShortMovie))
+    // console.log(localStorage.isSwitch);
   }
 
-  const seeMovies = isSelectedShortMovie ? movies.filter((m) => m.duration < 40) : movies;
+  const movies = isSelectedShortMovie
+    ? searchedMovies.filter((m) => m.duration < 40)
+    : searchedMovies;
 
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
-        <SearchForm handleSearchSubmit={handleSearchSubmit} />
-        <SearchFormFilter handleChangeShortMovie={handleChangeShortMovie} isSelectedShortMovie={isSelectedShortMovie}/>
+        <SearchForm handleSearchSubmit={handleSearchSubmit} searchDataText={searchDataText} />
+        <SearchFormFilter
+          handleChangeShortMovie={handleChangeShortMovie}
+          isSelectedShortMovie={isSelectedShortMovie}
+        />
+        {isLoading && <Preloader />}
         <MoviesCardList
-          movies={seeMovies}
+          movies={movies}
+          moviesList={moviesList}
           handleMovieSave={handleMovieSave}
           handleMovieDelete={handleMovieDelete}
           savedMovies={savedMovies}
+          searchText={searchText}
         />
-        <Preloader />
       </main>
       <Footer />
     </>

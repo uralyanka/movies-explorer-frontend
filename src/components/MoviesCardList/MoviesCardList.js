@@ -1,9 +1,10 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-export default function MoviesCardList({ movies, handleMovieSave, handleMovieDelete, savedMovies }) {
+export default function MoviesCardList({ movies, handleMovieSave, handleMovieDelete, savedMovies, searchText }) {
   return (
     <div className="movies-card-list">
+      {searchText && <p className="movies-card-list__search-text">{searchText}</p>}
       <ul className="movies-card-list__grid-container">
         {movies?.map((movie) => {
           return (

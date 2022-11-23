@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import "./SearchForm.css";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-export default function SearchForm({ handleSearchSubmit }) {
-  const { values, handleChange, isValid, resetForm } = useFormWithValidation();
+export default function SearchForm({ handleSearchSubmit, searchDataText }) {
+  const { values, handleChange, isValid } = useFormWithValidation();
 
   const isSubmitDisabled = isValid;
 
@@ -17,8 +17,10 @@ export default function SearchForm({ handleSearchSubmit }) {
   }
 
   useEffect(() => {
-    resetForm({}, {}, false);
-  }, [resetForm]);
+    if (searchDataText) {
+      values.keyWord = searchDataText;
+    }
+  }, [searchDataText]);
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
@@ -36,7 +38,6 @@ export default function SearchForm({ handleSearchSubmit }) {
           required
         />
         <button
-          // className="button search-form__btn"
           type="submit"
           className={submitButtonClassName}
           disabled={!isSubmitDisabled}
