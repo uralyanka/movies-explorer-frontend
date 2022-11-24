@@ -11,7 +11,6 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
-import moviesApi from "../../utils/MoviesApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 
@@ -69,7 +68,7 @@ export default function App() {
       .saveMovie(movie)
       .then((newSavedMovie) => {
         console.log(newSavedMovie);
-        setSavedMovies([newSavedMovie, ...savedMovies]);
+        setSavedMovies([...savedMovies, newSavedMovie]);
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +77,7 @@ export default function App() {
 
   // Удаление фильма
   function handleMovieDelete(movie) {
-    console.log("Я в handleMovieDelete");
+    // console.log("Я в handleMovieDelete");
     console.log(movie);
     mainApi
       .deleteMovie(movie._id)
@@ -210,6 +209,7 @@ export default function App() {
       .signout()
       .then(() => {
         setLoggedIn(false);
+        localStorage.clear();
         setCurrentUser({});
         navigate("/");
       })
@@ -272,7 +272,6 @@ export default function App() {
                   isLoggedIn={isLoggedIn}
                   component={Movies}
                   handleMovieSave={handleMovieSave}
-                  handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
                 ></ProtectedRoute>
               }

@@ -12,14 +12,13 @@ import moviesApi from "../../utils/MoviesApi";
 export default function Movies({
   isLoggedIn,
   handleMovieSave,
-  handleMovieDelete,
   savedMovies,
   handleSearchSubmit,
-
 }) {
   const [allMovies, setAllMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchedMovies, setSearchedMovies] = useState([]);
+  const [moviesList, setMoviesList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const localStorageData = JSON.parse(localStorage.getItem("localStorageData"));
   const [searchDataText, setSearchDataText] = useState("");
@@ -33,14 +32,11 @@ export default function Movies({
     if (localStorageData) {
       setSearchDataText(localStorageData.search);
       setSearchedMovies(localStorageData.movies);
-      console.log(localStorageData);
+      // console.log(localStorageData);
       if (localStorageData.movies.length === 0) {
         setSearchText("Ничего не найдено");
       }
     }
-  }, []);
-
-  useEffect(() => {
     if (localStorage) {
       setIsSelectedIsShortMovie(JSON.parse(localStorage.getItem("isSwitch")));
       // console.log(localStorage.isSwitch);
@@ -80,6 +76,7 @@ export default function Movies({
 
   function searchMovies(movies, values) {
     const searchedMovies = getSearchMovieList(movies, values);
+    const viewMovies = searchedMovies.slice(0, cardQuantity);
     const localStorageData = {
       search: values,
       movies: searchedMovies,
@@ -87,6 +84,8 @@ export default function Movies({
     localStorage.setItem("localStorageData", JSON.stringify(localStorageData));
     // console.log(localStorageData)
     setSearchedMovies(searchedMovies);
+    console.log(searchedMovies.length);
+    setMoviesList(viewMovies);
     if (searchedMovies.length === 0) {
       setSearchText("Ничего не найдено");
     }
@@ -100,15 +99,15 @@ export default function Movies({
   }
 
   const movies = isSelectedShortMovie
-    ? searchedMovies.filter((m) => m.duration < 40)
-    : searchedMovies;
+    ? moviesList.filter((m) => m.duration < 40)
+    : moviesList;
 
   // Выравнивание по рядам + кнопка Еще
   useEffect(() => {
     // Ширина 1280px — 12 карточек по 3 в ряд. Кнопка «Ещё» загружает по 3 карточки.
     if (windowWidth >= 900) {
       setCardQuantity(12);
-      setMoreCardQuantity(4);
+      setMoreCardQuantity(3);
       return;
     }
     // Ширина 768px — 8 карточек по 2 в ряд. Кнопка «Ещё» загружает по 2 карточки.
@@ -124,7 +123,8 @@ export default function Movies({
 
   useEffect(() => {
     if (cardQuantity && localStorageData) {
-      setSearchedMovies(localStorageData.movies.slice(0, cardQuantity));
+      setSearchedMovies(localStorageData.movies);
+      setMoviesList(localStorageData.movies.slice(0, cardQuantity));
     }
   }, [cardQuantity]);
 
@@ -147,9 +147,8 @@ export default function Movies({
         {isLoading && <Preloader />}
         <MoviesCardList
           movies={movies}
-          // moviesList={moviesList}
+          searchedMovies={searchedMovies}
           handleMovieSave={handleMovieSave}
-          handleMovieDelete={handleMovieDelete}
           savedMovies={savedMovies}
           searchText={searchText}
           handleMoreMovies={handleMoreMovies}

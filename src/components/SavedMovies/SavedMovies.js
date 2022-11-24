@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SavedMovies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
@@ -12,6 +12,14 @@ export default function SavedMovies({
   savedMovies,
   handleMovieDelete,
 }) {
+
+  const [moviesList, setMoviesList] = useState([]);
+
+  useEffect(() => {
+    console.log(savedMovies)
+    setMoviesList(savedMovies);
+  }, [savedMovies]);
+
   const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
 
   function handleChangeShortMovie() {
@@ -19,7 +27,7 @@ export default function SavedMovies({
     localStorage.setItem('isSwitch', JSON.stringify(!isSelectedShortMovie))
   }
 
-  const movies = isSelectedShortMovie ? savedMovies.filter((m) => m.duration < 40) : savedMovies;
+  const movies = isSelectedShortMovie ? moviesList.filter((m) => m.duration < 40) : moviesList;
 
   return (
     <>
