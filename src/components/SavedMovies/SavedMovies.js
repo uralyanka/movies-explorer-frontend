@@ -10,35 +10,54 @@ import Footer from "../Footer/Footer";
 export default function SavedMovies({
   isLoggedIn,
   savedMovies,
+  setSavedMovies,
   handleMovieDelete,
 }) {
-
   const [moviesList, setMoviesList] = useState([]);
+  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchDataText, setSearchDataText] = useState("");
 
   useEffect(() => {
-    console.log(savedMovies)
     setMoviesList(savedMovies);
+    setSearchedMovies(savedMovies);
   }, [savedMovies]);
+
+  function getSearchMovieList(savedMovies, values) {
+    return savedMovies.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(values.toLowerCase());
+    });
+  }
+
+  function handleSearchSubmit(values) {
+    const searchMovies = getSearchMovieList(savedMovies, values);
+
+    setMoviesList(searchMovies);
+  }
 
   const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
 
   function handleChangeShortMovie() {
     setIsSelectedIsShortMovie(!isSelectedShortMovie);
-    localStorage.setItem('isSwitch', JSON.stringify(!isSelectedShortMovie))
+    localStorage.setItem("isSwitch", JSON.stringify(!isSelectedShortMovie));
   }
 
-  const movies = isSelectedShortMovie ? moviesList.filter((m) => m.duration < 40) : moviesList;
+  const movies = isSelectedShortMovie
+    ? moviesList.filter((m) => m.duration < 40)
+    : moviesList;
 
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="saved-movies">
-        <SearchForm />
-        <SearchFormFilter handleChangeShortMovie={handleChangeShortMovie} isSelectedShortMovie={isSelectedShortMovie} />
-        <MoviesCardList
-          movies={movies}
-          handleMovieDelete={handleMovieDelete}
+        <SearchForm
+          handleSearchSubmit={handleSearchSubmit}
+          searchDataText={searchDataText}
         />
+        <SearchFormFilter
+          handleChangeShortMovie={handleChangeShortMovie}
+          isSelectedShortMovie={isSelectedShortMovie}
+        />
+        <MoviesCardList movies={movies} handleMovieDelete={handleMovieDelete} />
         {/* <Preloader /> */}
       </main>
       <Footer />

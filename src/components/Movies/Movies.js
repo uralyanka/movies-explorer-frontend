@@ -84,7 +84,7 @@ export default function Movies({
     localStorage.setItem("localStorageData", JSON.stringify(localStorageData));
     // console.log(localStorageData)
     setSearchedMovies(searchedMovies);
-    console.log(searchedMovies.length);
+    console.log(searchedMovies);
     setMoviesList(viewMovies);
     if (searchedMovies.length === 0) {
       setSearchText("Ничего не найдено");

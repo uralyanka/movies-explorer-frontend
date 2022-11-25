@@ -282,6 +282,7 @@ export default function App() {
                 <SavedMovies
                   isLoggedIn={isLoggedIn}
                   savedMovies={savedMovies}
+                  setSavedMovies={setSavedMovies}
                   handleMovieDelete={handleMovieDelete}
                 />
               }
