@@ -46,11 +46,12 @@ export default function App() {
       .then((res) => {
         console.log(res);
         setSavedMovies((res) =>
-          res.filter((m) => {
-            return m.owner === currentUser._id;
-          })
+        res.filter((m) => {
+          return m.owner === currentUser._id;
+        })
         );
-        localStorage.setItem("savedMovies", JSON.stringify(res));
+        // console.log(savedMovies);
+        // localStorage.setItem("savedMovies", JSON.stringify(res));
         // console.log(localStorage.savedMovies)
       })
       .catch((error) => {
@@ -62,32 +63,7 @@ export default function App() {
     getSavedMovies();
   }, [currentUser]);
 
-  // Сохранение фильма
-  function handleMovieSave(movie) {
-    mainApi
-      .saveMovie(movie)
-      .then((newSavedMovie) => {
-        console.log(newSavedMovie);
-        setSavedMovies([...savedMovies, newSavedMovie]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  // Удаление фильма
-  function handleMovieDelete(movie) {
-    // console.log("Я в handleMovieDelete");
-    console.log(movie);
-    mainApi
-      .deleteMovie(movie._id)
-      .then(() => {
-        setSavedMovies((movies) => movies.filter((m) => m._id !== movie._id));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  console.log(savedMovies);
 
   // Загрузка данных пользователя
   useEffect(() => {
@@ -271,8 +247,8 @@ export default function App() {
                 <ProtectedRoute
                   isLoggedIn={isLoggedIn}
                   component={Movies}
-                  handleMovieSave={handleMovieSave}
                   savedMovies={savedMovies}
+                  setSavedMovies={setSavedMovies}
                 ></ProtectedRoute>
               }
             />
@@ -283,7 +259,6 @@ export default function App() {
                   isLoggedIn={isLoggedIn}
                   savedMovies={savedMovies}
                   setSavedMovies={setSavedMovies}
-                  handleMovieDelete={handleMovieDelete}
                 />
               }
             />

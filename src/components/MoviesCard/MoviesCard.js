@@ -1,12 +1,7 @@
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 
-export default function MoviesCard({
-  movie,
-  handleMovieSave,
-  handleMovieDelete,
-  savedMovies,
-}) {
+export default function MoviesCard({ movie, handleMovieSave, handleMovieDelete, savedMovies }) {
   const location = useLocation();
   const savedMovieOk = location.pathname === "/saved-movies";
   const image = !savedMovieOk
@@ -22,12 +17,8 @@ export default function MoviesCard({
   }
 
   function handleSaveMovieClick() {
+    handleMovieSave(movie);
     console.log(movie);
-    if (isSaved) {
-      handleMovieDelete(savedMovies.filter((m) => m.movieId === movie.id)[0]);
-    } else if (!isSaved) {
-      handleMovieSave(movie);
-    }
   }
 
   function handleDeleteSavedClick() {

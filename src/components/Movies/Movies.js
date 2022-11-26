@@ -8,11 +8,12 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 import moviesApi from "../../utils/MoviesApi";
+import mainApi from "../../utils/MainApi";
 
 export default function Movies({
   isLoggedIn,
-  handleMovieSave,
   savedMovies,
+  setSavedMovies,
   handleSearchSubmit,
 }) {
   const [allMovies, setAllMovies] = useState([]);
@@ -22,11 +23,14 @@ export default function Movies({
   const [searchText, setSearchText] = useState("");
   const localStorageData = JSON.parse(localStorage.getItem("localStorageData"));
   const [searchDataText, setSearchDataText] = useState("");
+  const [searchErrorText, setSearchErrorText] = useState("");
   const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
 
   const [cardQuantity, setCardQuantity] = useState(0);
   const [moreCardQuantity, setMoreCardQuantity] = useState(0);
   const windowWidth = useWindowInnerWidth();
+
+  console.log(savedMovies);
 
   useEffect(() => {
     if (localStorageData) {
@@ -45,6 +49,7 @@ export default function Movies({
 
   // Поиск фильмов с api
   function handleSearchSubmit(values) {
+    setSearchErrorText("");
     setSearchText("");
     if (allMovies.length === 0) {
       setIsLoading(true);
@@ -132,12 +137,41 @@ export default function Movies({
     setCardQuantity(cardQuantity + moreCardQuantity);
   }
 
+  // Сохранение фильма
+  function handleMovieSave(movie) {
+    mainApi
+      .saveMovie(movie)
+      .then((newSavedMovie) => {
+        console.log(newSavedMovie);
+        setSavedMovies([...savedMovies, newSavedMovie]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // Удаление фильма
+  function handleMovieDelete(movie) {
+    // console.log("Я в handleMovieDelete");
+    console.log(movie);
+    mainApi
+      .deleteMovie(movie._id)
+      .then(() => {
+        setSavedMovies((movies) => movies.filter((m) => m._id !== movie._id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
         <SearchForm
           handleSearchSubmit={handleSearchSubmit}
+          searchErrorText={searchErrorText}
+          setSearchErrorText={setSearchErrorText}
           searchDataText={searchDataText}
         />
         <SearchFormFilter
@@ -149,6 +183,7 @@ export default function Movies({
           movies={movies}
           searchedMovies={searchedMovies}
           handleMovieSave={handleMovieSave}
+          handleMovieDelete={handleMovieDelete}
           savedMovies={savedMovies}
           searchText={searchText}
           handleMoreMovies={handleMoreMovies}

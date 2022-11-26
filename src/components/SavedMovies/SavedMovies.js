@@ -6,6 +6,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchFormFilter from "../SearchFormFilter/SearchFormFilter";
 // import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
+import mainApi from "../../utils/MainApi";
 
 export default function SavedMovies({
   isLoggedIn,
@@ -14,12 +15,14 @@ export default function SavedMovies({
   handleMovieDelete,
 }) {
   const [moviesList, setMoviesList] = useState([]);
-  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [searchDataText, setSearchDataText] = useState("");
+  const [searchErrorText, setSearchErrorText] = useState("");
+  const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
 
   useEffect(() => {
     setMoviesList(savedMovies);
-    setSearchedMovies(savedMovies);
+    // console.log(JSON.parse(localStorage.getItem("savedMovies")))
   }, [savedMovies]);
 
   function getSearchMovieList(savedMovies, values) {
@@ -29,13 +32,17 @@ export default function SavedMovies({
   }
 
   function handleSearchSubmit(values) {
-    const searchMovies = getSearchMovieList(savedMovies, values);
+    setSearchErrorText("");
+    setSearchText("");
+    const searchedMovies = getSearchMovieList(savedMovies, values);
 
-    setMoviesList(searchMovies);
+    setMoviesList(searchedMovies);
+    if (searchedMovies.length === 0) {
+      setSearchText("Ничего не найдено");
+    }
   }
 
-  const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
-
+  // Свитч Короткометражки
   function handleChangeShortMovie() {
     setIsSelectedIsShortMovie(!isSelectedShortMovie);
     localStorage.setItem("isSwitch", JSON.stringify(!isSelectedShortMovie));
@@ -45,19 +52,39 @@ export default function SavedMovies({
     ? moviesList.filter((m) => m.duration < 40)
     : moviesList;
 
+  // Удаление фильма
+  function handleMovieDelete(movie) {
+    // console.log("Я в handleMovieDelete");
+    console.log(movie);
+    mainApi
+      .deleteMovie(movie._id)
+      .then(() => {
+        setSavedMovies((movies) => movies.filter((m) => m._id !== movie._id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="saved-movies">
         <SearchForm
           handleSearchSubmit={handleSearchSubmit}
+          searchErrorText={searchErrorText}
+          setSearchErrorText={setSearchErrorText}
           searchDataText={searchDataText}
         />
         <SearchFormFilter
           handleChangeShortMovie={handleChangeShortMovie}
           isSelectedShortMovie={isSelectedShortMovie}
         />
-        <MoviesCardList movies={movies} handleMovieDelete={handleMovieDelete} />
+        <MoviesCardList
+          movies={movies}
+          handleMovieDelete={handleMovieDelete}
+          searchText={searchText}
+        />
         {/* <Preloader /> */}
       </main>
       <Footer />
