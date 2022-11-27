@@ -1,4 +1,4 @@
-const baseAuthUrl = "http://localhost:3000";
+const baseAuthUrl = "https://api.uralyanka.diploma.nomoredomains.icu";
 
 function checkRes(res) {
   if (res.ok) {

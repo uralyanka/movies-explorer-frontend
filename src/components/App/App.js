@@ -44,15 +44,12 @@ export default function App() {
     mainApi
       .getSavedMovies()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setSavedMovies((res) =>
-        res.filter((m) => {
-          return m.owner === currentUser._id;
-        })
+          res.filter((m) => {
+            return m.owner === currentUser._id;
+          })
         );
-        // console.log(savedMovies);
-        // localStorage.setItem("savedMovies", JSON.stringify(res));
-        // console.log(localStorage.savedMovies)
       })
       .catch((error) => {
         console.log(error);
