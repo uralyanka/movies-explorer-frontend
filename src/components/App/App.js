@@ -196,7 +196,7 @@ export default function App() {
         <title>YA.Diploma</title>
         <link
           rel="canonical"
-          href="http://uralyanka.diploma.nomoredomains.icu"
+          href="https://uralyanka.diploma.nomoredomains.icu"
         />
         <meta
           name="description"

@@ -14,7 +14,6 @@ export default function Movies({
   isLoggedIn,
   savedMovies,
   setSavedMovies,
-  handleSearchSubmit,
 }) {
   const [allMovies, setAllMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

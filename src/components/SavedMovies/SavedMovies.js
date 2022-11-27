@@ -12,7 +12,6 @@ export default function SavedMovies({
   isLoggedIn,
   savedMovies,
   setSavedMovies,
-  handleMovieDelete,
 }) {
   const [moviesList, setMoviesList] = useState([]);
   const [searchText, setSearchText] = useState("");
