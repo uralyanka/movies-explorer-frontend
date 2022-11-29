@@ -12,6 +12,7 @@ import NotFound from "../NotFound/NotFound";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRouteAuth from "../ProtectedRouteAuth/ProtectedRouteAuth";
 import "./App.css";
 
 export default function App() {
@@ -127,7 +128,6 @@ export default function App() {
           .then((userData) => {
             setLoggedIn(true);
             setCurrentUser(userData);
-            // console.log(isLoggedIn);
           })
           .catch((err) => {
             console.log(err);
@@ -161,6 +161,14 @@ export default function App() {
       })
       .catch((err) => {
         handleLogOut();
+        if (err === "Ошибка: 400")
+          return console.log(
+            "При авторизации произошла ошибка. Токен не передан или передан не в том формате."
+          );
+        if (err === "Ошибка: 401")
+          return console.log(
+            "При авторизации произошла ошибка. Переданный токен некорректен."
+          );
         console.log(err);
       });
   }, []);
@@ -199,27 +207,31 @@ export default function App() {
             <Route
               path="/signup"
               element={
-                <Register
+                <ProtectedRouteAuth
+                  component={Register}
+                  isLoggedIn={isLoggedIn}
                   handleRegister={handleRegister}
                   requestRegisterError={requestRegisterError}
-                />
+                ></ProtectedRouteAuth>
               }
             />
             <Route
               path="/signin"
               element={
-                <Login
+                <ProtectedRouteAuth
+                  component={Login}
+                  isLoggedIn={isLoggedIn}
                   handleLogin={handleLogin}
                   requestLoginError={requestLoginError}
-                />
+                ></ProtectedRouteAuth>
               }
             />
             <Route
               path="/profile"
               element={
                 <ProtectedRoute
-                  isLoggedIn={isLoggedIn}
                   component={Profile}
+                  isLoggedIn={isLoggedIn}
                   handleLogOut={handleLogOut}
                   currentUser={currentUser}
                   handleUpdateUser={handleUpdateUser}
