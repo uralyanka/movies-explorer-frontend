@@ -8,13 +8,22 @@ import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 import moviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
+import {
+  SEARCH_ZERO_TEXT,
+  SEARCH_ERROR_TEXT,
+  WINDOW_WIDTH_MAX,
+  CARD_QUANTITY_MAX,
+  MORE_CARD_QUANTITY_MAX,
+  WINDOW_WIDTH_MID,
+  CARD_QUANTITY_MID,
+  MORE_CARD_QUANTITY_MID,
+  CARD_QUANTITY_MIN,
+  MORE_CARD_QUANTITY_MIN,
+  DURATION_SHORT,
+} from "../../utils/constants";
 import "./Movies.css";
 
-export default function Movies({
-  isLoggedIn,
-  savedMovies,
-  setSavedMovies,
-}) {
+export default function Movies({ isLoggedIn, savedMovies, setSavedMovies }) {
   const [allMovies, setAllMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -29,20 +38,18 @@ export default function Movies({
   const [moreCardQuantity, setMoreCardQuantity] = useState(0);
   const windowWidth = useWindowInnerWidth();
 
-  console.log(savedMovies);
+  // console.log(savedMovies);
 
   useEffect(() => {
     if (localStorageData) {
       setSearchDataText(localStorageData.search);
       setSearchedMovies(localStorageData.movies);
-      // console.log(localStorageData);
       if (localStorageData.movies.length === 0) {
-        setSearchText("Ничего не найдено");
+        setSearchText(SEARCH_ZERO_TEXT);
       }
     }
     if (localStorage) {
       setIsSelectedIsShortMovie(JSON.parse(localStorage.getItem("isSwitch")));
-      // console.log(localStorage.isSwitch);
     }
   }, []);
 
@@ -50,7 +57,7 @@ export default function Movies({
   function handleSearchSubmit(values) {
     setSearchErrorText("");
     setSearchText("");
-    // console.log(allMovies);
+    // console.log(allMovies.length);
     if (allMovies.length === 0) {
       setIsLoading(true);
       moviesApi
@@ -61,15 +68,13 @@ export default function Movies({
         })
         .catch((err) => {
           console.log(err);
-          setSearchText(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
-          );
+          setSearchText(SEARCH_ERROR_TEXT);
         })
         .finally(() => {
           setIsLoading(false);
         });
     } else {
-      // Для повторного поиска
+      // Для повторного поиска без запроса на сервер
       searchMovies(allMovies, values);
     }
   }
@@ -83,17 +88,15 @@ export default function Movies({
   function searchMovies(movies, values) {
     const searchedMovies = getSearchMovieList(movies, values);
     const viewMovies = searchedMovies.slice(0, cardQuantity);
-    const localStorageData = {
-      search: values,
-      movies: searchedMovies,
-    };
+
+    const localStorageData = { search: values, movies: searchedMovies };
     localStorage.setItem("localStorageData", JSON.stringify(localStorageData));
-    // console.log(localStorageData)
+
     setSearchedMovies(searchedMovies);
-    console.log(searchedMovies);
+    // console.log(searchedMovies);
     setMoviesList(viewMovies);
     if (searchedMovies.length === 0) {
-      setSearchText("Ничего не найдено");
+      setSearchText(SEARCH_ZERO_TEXT);
     }
   }
 
@@ -101,30 +104,26 @@ export default function Movies({
   function handleChangeShortMovie() {
     setIsSelectedIsShortMovie(!isSelectedShortMovie);
     localStorage.setItem("isSwitch", JSON.stringify(!isSelectedShortMovie));
-    // console.log(localStorage.isSwitch);
   }
 
   const movies = isSelectedShortMovie
-    ? moviesList.filter((m) => m.duration < 40)
+    ? moviesList.filter((m) => m.duration < DURATION_SHORT)
     : moviesList;
 
   // Выравнивание по рядам + кнопка Еще
   useEffect(() => {
-    // Ширина 1280px — 12 карточек по 3 в ряд. Кнопка «Ещё» загружает по 3 карточки.
-    if (windowWidth >= 900) {
-      setCardQuantity(12);
-      setMoreCardQuantity(3);
+    if (windowWidth >= WINDOW_WIDTH_MAX) {
+      setCardQuantity(CARD_QUANTITY_MAX);
+      setMoreCardQuantity(MORE_CARD_QUANTITY_MAX);
       return;
     }
-    // Ширина 768px — 8 карточек по 2 в ряд. Кнопка «Ещё» загружает по 2 карточки.
-    if (windowWidth > 550) {
-      setCardQuantity(8);
-      setMoreCardQuantity(2);
+    if (windowWidth > WINDOW_WIDTH_MID) {
+      setCardQuantity(CARD_QUANTITY_MID);
+      setMoreCardQuantity(MORE_CARD_QUANTITY_MID);
       return;
     }
-    // Ширина от 320px до 480px — 5 карточек по 1 в ряд. Кнопка «Ещё» загружает по 2 карточки.
-    setCardQuantity(5);
-    setMoreCardQuantity(5);
+    setCardQuantity(CARD_QUANTITY_MIN);
+    setMoreCardQuantity(MORE_CARD_QUANTITY_MIN);
   }, [windowWidth]);
 
   useEffect(() => {

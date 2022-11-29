@@ -55,7 +55,7 @@ export default function App() {
     }
   }, [isLoggedIn]);
 
-  console.log(savedMovies);
+  // console.log(savedMovies);
 
   // Загрузка данных пользователя
   useEffect(() => {

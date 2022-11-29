@@ -4,9 +4,9 @@ import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchFormFilter from "../SearchFormFilter/SearchFormFilter";
-// import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 import mainApi from "../../utils/MainApi";
+import { SEARCH_ZERO_TEXT, DURATION_SHORT } from "../../utils/constants"
 
 export default function SavedMovies({
   isLoggedIn,
@@ -31,27 +31,25 @@ export default function SavedMovies({
   function handleSearchSubmit(values) {
     setSearchErrorText("");
     setSearchText("");
-    const searchedMovies = getSearchMovieList(savedMovies, values);
+    const searchedSavedMovies = getSearchMovieList(savedMovies, values);
 
-    setMoviesList(searchedMovies);
-    if (searchedMovies.length === 0) {
-      setSearchText("Ничего не найдено");
+    setMoviesList(searchedSavedMovies);
+    if (searchedSavedMovies.length === 0) {
+      setSearchText(SEARCH_ZERO_TEXT);
     }
   }
 
   // Свитч Короткометражки
   function handleChangeShortMovie() {
     setIsSelectedIsShortMovie(!isSelectedShortMovie);
-    localStorage.setItem("isSwitch", JSON.stringify(!isSelectedShortMovie));
   }
 
   const movies = isSelectedShortMovie
-    ? moviesList.filter((m) => m.duration < 40)
+    ? moviesList.filter((m) => m.duration < DURATION_SHORT)
     : moviesList;
 
   // Удаление фильма
   function handleMovieDelete(movie) {
-    // console.log("Я в handleMovieDelete");
     console.log(movie);
     mainApi
       .deleteMovie(movie._id)
@@ -81,7 +79,6 @@ export default function SavedMovies({
           handleMovieDelete={handleMovieDelete}
           searchText={searchText}
         />
-        {/* <Preloader /> */}
       </main>
       <Footer />
     </>
