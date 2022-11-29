@@ -89,7 +89,7 @@ class MainApi {
 }
 
 export default new MainApi({
-  mainApiUrl: "https://api.uralyanka.diploma.nomoredomains.icu",
+  mainApiUrl: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
   },

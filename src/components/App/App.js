@@ -152,38 +152,27 @@ export default function App() {
   }
 
   // Аутентификация при повторном входе
-  function handleCheckToken() {
+  useEffect(() => {
     auth
       .getCurrentUser()
-      .then(() => {
+      .then((userData) => {
         setLoggedIn(true);
-        // console.log(isLoggedIn);
+        setCurrentUser(userData);
       })
       .catch((err) => {
-        setLoggedIn(false);
-        if (err === "Ошибка: 400")
-          return console.log(
-            "При авторизации произошла ошибка. Токен не передан или передан не в том формате."
-          );
-        if (err === "Ошибка: 401")
-          return console.log(
-            "При авторизации произошла ошибка. Переданный токен некорректен."
-          );
+        handleLogOut();
         console.log(err);
       });
-  }
-
-  useEffect(() => {
-    handleCheckToken();
   }, []);
 
+  // Выход из аккаунта
   function handleLogOut() {
     auth
       .signout()
       .then(() => {
         setLoggedIn(false);
+        setCurrentUser({ name: "", email: "" });
         localStorage.clear();
-        setCurrentUser({});
         navigate("/");
       })
       .catch((err) => console.log(err));
