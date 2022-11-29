@@ -41,25 +41,19 @@ export default function App() {
   // // }, []);
 
   //Сохраненные фильмы с api
-  function getSavedMovies() {
-    mainApi
-      .getSavedMovies()
-      .then((res) => {
-        // console.log(res);
-        setSavedMovies((res) =>
-          res.filter((m) => {
-            return m.owner === currentUser._id;
-          })
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   useEffect(() => {
-    getSavedMovies();
-  }, [currentUser]);
+    if (isLoggedIn) {
+      mainApi
+        .getSavedMovies()
+        .then((res) => {
+          setSavedMovies(res);
+          localStorage.setItem("savedMovies", JSON.stringify(res));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isLoggedIn]);
 
   console.log(savedMovies);
 

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useWindowInnerWidth from "../../hooks/useWindowInnerWidth";
-import "./Movies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import SearchFormFilter from "../SearchFormFilter/SearchFormFilter";
@@ -9,6 +8,7 @@ import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 import moviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
+import "./Movies.css";
 
 export default function Movies({
   isLoggedIn,
@@ -50,6 +50,7 @@ export default function Movies({
   function handleSearchSubmit(values) {
     setSearchErrorText("");
     setSearchText("");
+    // console.log(allMovies);
     if (allMovies.length === 0) {
       setIsLoading(true);
       moviesApi
@@ -68,12 +69,13 @@ export default function Movies({
           setIsLoading(false);
         });
     } else {
+      // Для повторного поиска
       searchMovies(allMovies, values);
     }
   }
 
-  function getSearchMovieList(movieList, values) {
-    return movieList.filter((movie) => {
+  function getSearchMovieList(movies, values) {
+    return movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(values.toLowerCase());
     });
   }

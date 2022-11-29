@@ -15,17 +15,15 @@ export default function SavedMovies({
 }) {
   const [moviesList, setMoviesList] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [searchDataText, setSearchDataText] = useState("");
   const [searchErrorText, setSearchErrorText] = useState("");
   const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
 
   useEffect(() => {
     setMoviesList(savedMovies);
-    // console.log(JSON.parse(localStorage.getItem("savedMovies")))
   }, [savedMovies]);
 
-  function getSearchMovieList(savedMovies, values) {
-    return savedMovies.filter((movie) => {
+  function getSearchMovieList(movies, values) {
+    return movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(values.toLowerCase());
     });
   }
@@ -73,7 +71,6 @@ export default function SavedMovies({
           handleSearchSubmit={handleSearchSubmit}
           searchErrorText={searchErrorText}
           setSearchErrorText={setSearchErrorText}
-          searchDataText={searchDataText}
         />
         <SearchFormFilter
           handleChangeShortMovie={handleChangeShortMovie}

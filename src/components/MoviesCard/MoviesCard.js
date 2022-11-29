@@ -8,8 +8,8 @@ export default function MoviesCard({
   savedMovies,
 }) {
   const location = useLocation();
-  const savedMovieOk = location.pathname === "/saved-movies";
-  const image = !savedMovieOk
+  const savedMoviePage = location.pathname === "/saved-movies";
+  const image = !savedMoviePage
     ? `https://api.nomoreparties.co${movie.image.url}`
     : `${movie.image}`;
 
@@ -46,7 +46,7 @@ export default function MoviesCard({
             {minutesToHours(movie.duration)}
           </span>
         </div>
-        {!savedMovieOk && (
+        {!savedMoviePage && (
           <button
             className={`button movie-card__save-btn ${
               isSaved ? "movie-card__save-btn_active" : ""
@@ -55,7 +55,7 @@ export default function MoviesCard({
             onClick={handleSaveMovieClick}
           ></button>
         )}
-        {savedMovieOk && (
+        {savedMoviePage && (
           <button
             className="button movie-card__delete-saved-btn"
             type="button"
