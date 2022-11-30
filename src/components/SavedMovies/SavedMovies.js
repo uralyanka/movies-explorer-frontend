@@ -1,40 +1,84 @@
+import { useState, useEffect } from "react";
 import "./SavedMovies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import Preloader from "../Preloader/Preloader";
+import SearchFormFilter from "../SearchFormFilter/SearchFormFilter";
 import Footer from "../Footer/Footer";
+import mainApi from "../../utils/MainApi";
+import { SEARCH_ZERO_TEXT, DURATION_SHORT } from "../../utils/constants"
 
-export default function Movies({ isLoggedIn }) {
+export default function SavedMovies({
+  isLoggedIn,
+  savedMovies,
+  setSavedMovies,
+}) {
+  const [moviesList, setMoviesList] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [searchErrorText, setSearchErrorText] = useState("");
+  const [isSelectedShortMovie, setIsSelectedIsShortMovie] = useState(false);
+
+  useEffect(() => {
+    setMoviesList(savedMovies);
+  }, [savedMovies]);
+
+  function getSearchMovieList(movies, values) {
+    return movies.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(values.toLowerCase());
+    });
+  }
+
+  function handleSearchSubmit(values) {
+    setSearchErrorText("");
+    setSearchText("");
+    const searchedSavedMovies = getSearchMovieList(savedMovies, values);
+
+    setMoviesList(searchedSavedMovies);
+    if (searchedSavedMovies.length === 0) {
+      setSearchText(SEARCH_ZERO_TEXT);
+    }
+  }
+
+  // Свитч Короткометражки
+  function handleChangeShortMovie() {
+    setIsSelectedIsShortMovie(!isSelectedShortMovie);
+  }
+
+  const movies = isSelectedShortMovie
+    ? moviesList.filter((m) => m.duration < DURATION_SHORT)
+    : moviesList;
+
+  // Удаление фильма
+  function handleMovieDelete(movie) {
+    console.log(movie);
+    mainApi
+      .deleteMovie(movie._id)
+      .then(() => {
+        setSavedMovies((movies) => movies.filter((m) => m._id !== movie._id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="saved-movies">
-        <SearchForm />
-        <MoviesCardList>
-          <MoviesCard
-            movieTitle="Лестница в небо"
-            movieDuration="3ч 20м"
-            movieCover="https://design-mate.ru/upload/images/post/post_1465_p5.jpg"
-          />
-          <MoviesCard
-            movieTitle="Айрис"
-            movieDuration="1ч 50м"
-            movieCover="https://design-mate.ru/upload/images/post/post_1465_p6.jpg"
-          />
-          <MoviesCard
-            movieTitle="Современный российский дизайн"
-            movieDuration="1ч"
-            movieCover="https://design-mate.ru/upload/images/post/post_1465_p7.jpg"
-          />
-          <MoviesCard
-            movieTitle="Коллекционеры кроссовок"
-            movieDuration="1ч 55м"
-            movieCover="https://design-mate.ru/upload/images/post/post_1465_p8.jpg"
-          />
-        </MoviesCardList>
-        <Preloader />
+        <SearchForm
+          handleSearchSubmit={handleSearchSubmit}
+          searchErrorText={searchErrorText}
+          setSearchErrorText={setSearchErrorText}
+        />
+        <SearchFormFilter
+          handleChangeShortMovie={handleChangeShortMovie}
+          isSelectedShortMovie={isSelectedShortMovie}
+        />
+        <MoviesCardList
+          movies={movies}
+          handleMovieDelete={handleMovieDelete}
+          searchText={searchText}
+        />
       </main>
       <Footer />
     </>

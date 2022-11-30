@@ -34,8 +34,31 @@
   background-image: url(../../images/saveicon.svg);
   background-position: 50%;
   background-repeat: no-repeat;
-  background-color: #313131;
+  background-color: #313131 !important;
   border-radius: 50% !important;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
+.movie-card__save-btn_active {
+  background-image: url(../../images/unsaveicon.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #3DDC84 !important;
+  border-radius: 50% !important;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
+.movie-card__delete-saved-btn {
+  background-image: url(../../images/closebtn.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #313131 !important;
+  border-radius: 50% !important;
+  border: none;
   width: 30px;
   height: 30px;
 }
